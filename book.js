@@ -174,6 +174,9 @@
       var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
       document.querySelectorAll(".reveal").forEach(function (el) { ro.observe(el); });
     } else { document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); }); }
+    /* belt and braces: anything in view that the observer missed gets revealed on scroll */
+    function sweep() { document.querySelectorAll(".reveal:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < window.innerHeight * 1.05) el.classList.add("in"); }); }
+    window.addEventListener("scroll", sweep, { passive: true }); window.addEventListener("load", function () { setTimeout(sweep, 600); });
   })();
 
   hydrate();
