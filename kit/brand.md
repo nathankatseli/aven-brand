@@ -12,11 +12,11 @@ Paste this into a system prompt, a design tool, or a briefing. Tokens and marks 
 
 **Voice.** Two registers. *Calm* for anything owner-facing: plain English, specific over superlative, warm, unhurried. *Real-talk* for social and education content: Cara telling it straight — funny, candid, Reddit-literate. Both share the core (we, short sentences, Australian spelling, kind always) and the nevers (no hype words, no promised outcomes, no mocking tenants or owners, no competitor names, no ALL CAPS, no sarcasm in complaints). Full rules in `voice.json`.
 
-**Colour.** Evening Pine: Ink #1C2B26 · Pine #2E4B3F · Rain #5B7E8C (the accent — the drop in every mark) · Sage #ADBFAE (lines and grounds only) · Sage-text #6F8579 (captions, eyebrows) · Cloud #F3F5F1 (page) · Paper #FBFCFA (cards). Proportion makes it calm: mostly cloud and paper, pine for structure, one rain moment per surface. Amber #8A6D3B is internal-only (open decisions in working docs).
+**Colour.** Evening Pine: Ink #1C2B26 · Pine #2E4B3F · Rain #5B7E8C (the accent — the evening star in every mark) · Sage #ADBFAE (lines and grounds only) · Sage-text #6F8579 (captions, eyebrows) · Cloud #F3F5F1 (page) · Paper #FBFCFA (cards). Proportion makes it calm: mostly cloud and paper, pine for structure, one rain moment per surface. Amber #8A6D3B is internal-only (open decisions in working docs).
 
 **Type.** Serif for the wordmark, taglines and display (alias `AVEN Serif`); quiet sans for body and UI (alias `AVEN Sans`). Sentence case; wide-tracked caps only for small labels. No bold serif headlines.
 
-**Marks.** Fine-line geometric, single pine weight, sage ground line, a rain-blue drop or Southern Cross in every mark. Outlined SVGs in `kit/marks/`. A simplified small-format cut is required for favicons.
+**Marks.** The Avenue family — Cara's brief: trees either side, a house in the middle, a road running down to it (the avenue of the name). Fine-line geometric, single pine weight, sage road and ground, one rain-blue evening star above the house in every mark. Eighteen drawings of the one idea in `kit/marks/20-37`; three earlier marks held in reserve (`01`, `02`, `12`). Small-format cut = The Lane (`31`, `icons/avenue-icon.svg`) for favicon, app icon and embroidery. Outlined SVGs; never re-type the wordmark.
 
 **Imagery.** Real photography or fine-line illustration only. Lead: documentary images of Cara at work across the service area. Support: single-weight line drawings in pine on cloud. Campaign register: calm interiors in evening light. No stock-looking stock; no generated images presented as real.
 

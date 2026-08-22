@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="44 20 122 122" role="img" aria-label="AVEN icon: road, roof, two trees, evening star">
+  <line x1="71" y1="113" x2="94" y2="84" stroke="#2e4b3f" stroke-width="4.2" stroke-linecap="round"/>
+  <line x1="139" y1="113" x2="116" y2="84" stroke="#2e4b3f" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M94 84 L94 77 L105 65 L116 77 L116 84" fill="none" stroke="#2e4b3f" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="58" y1="113" x2="58" y2="90.4" stroke="#2e4b3f" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="58" cy="90.4" rx="9.5" ry="11.4" fill="#2e4b3f" stroke="#2e4b3f" stroke-width="0"/><line x1="152" y1="113" x2="152" y2="90.4" stroke="#2e4b3f" stroke-width="4.2" stroke-linecap="round"/><ellipse cx="152" cy="90.4" rx="9.5" ry="11.4" fill="#2e4b3f" stroke="#2e4b3f" stroke-width="0"/>
+  <circle cx="105" cy="47" r="4.5" fill="#5b7e8c"/>
+</svg>

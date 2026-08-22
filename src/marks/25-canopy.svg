@@ -1,0 +1,9 @@
+<svg width="210" height="152" viewBox="0 0 210 152" role="img" aria-label="The Canopy - two trees bow over the road and almost meet; the star sits in the gap, the house at the end">
+  <line x1="65" y1="113" x2="101.5" y2="90" stroke="#2e4b3f" stroke-width="1.3" stroke-linecap="round"/><line x1="145" y1="113" x2="108.5" y2="90" stroke="#2e4b3f" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M46 113 Q50 58 97 52" fill="none" stroke="#2e4b3f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M164 113 Q160 58 113 52" fill="none" stroke="#2e4b3f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M96.5 90 L96.5 81.2 L105 73 L113.5 81.2 L113.5 90" fill="none" stroke="#2e4b3f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M103 90 L103 86.9 A2 2 0 0 1 107 86.9 L107 90" fill="none" stroke="#2e4b3f" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="105" cy="50" r="2.2" fill="#5b7e8c"/>
+  <text x="105" y="133" text-anchor="middle" fill="#1c2b26" font-size="15" letter-spacing="7" font-family="Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif">AVEN</text>
+  <text x="105" y="147" text-anchor="middle" fill="#6f8579" font-size="8.5" letter-spacing="4.5" font-family="Avenir Next,Segoe UI,sans-serif">PROPERTY</text>
+</svg>
