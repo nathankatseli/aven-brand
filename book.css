@@ -377,9 +377,14 @@ footer.ink .dbg{font-size:11.5px;font-family:ui-monospace,monospace;color:rgba(2
   .reveal,.reveal *{opacity:1!important;transform:none!important}
   body{background:#fff;padding:0;font-size:12.5px}
   .sheet{max-width:none}
-  .topbar,.rail,.toc,.dec-actions,.toast,.call textarea,.call .opts,.call .hint,footer .dbg,.cover .scrollhint,.cover .art,.part .big-num{display:none!important}
-  header.cover{min-height:0;background:var(--pine)!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
-  header.cover .sheet{padding:32px 24px}
+  .topbar,.rail,.toc,.dec-actions,.toast,.call textarea,.call .opts,.call .hint,footer .dbg,.cover .scrollhint,.part .big-num{display:none!important}
+  @page:first{margin:0}
+  header.cover{min-height:297mm;margin:0;display:flex;align-items:center;break-after:page;background:linear-gradient(160deg,#3a5c4d 0%,var(--pine) 40%,var(--ink-deep) 100%)!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  header.cover .sheet{padding:22mm 20mm;width:100%}
+  header.cover .art{display:block!important;opacity:.14;right:-40mm;top:50%;transform:translateY(-50%);width:150mm;animation:none!important}
+  .band{break-before:auto}
+  .bleed{margin-left:0!important;margin-right:0!important;width:auto!important}
+  .band .sheet{padding:16px 0 0}
   .band .sheet{padding:16px 0}
   .chapter{break-before:page}
   .chapter.first{break-before:auto}
