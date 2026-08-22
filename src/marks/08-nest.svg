@@ -1,0 +1,15 @@
+<svg width="210" height="152" viewBox="0 0 210 152" role="img" aria-label="Fine-line nest of layered arcs and twigs cradling a single rain-blue egg">
+  <path d="M76 78 C86 94 124 94 134 78" fill="none" stroke="#2e4b3f" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M82 80 C90 92 120 92 128 80" fill="none" stroke="#2e4b3f" stroke-width="1.25" stroke-linecap="round"/>
+  <path d="M89 82 C95 89 115 89 121 82" fill="none" stroke="#2e4b3f" stroke-width="1.05" stroke-linecap="round"/>
+  <line x1="72" y1="77" x2="79" y2="80" stroke="#2e4b3f" stroke-width="1" stroke-linecap="round"/>
+  <line x1="138" y1="77" x2="131" y2="80" stroke="#2e4b3f" stroke-width="1" stroke-linecap="round"/>
+  <line x1="75" y1="84" x2="82" y2="85.5" stroke="#2e4b3f" stroke-width="0.9" stroke-linecap="round"/>
+  <line x1="135" y1="84" x2="128" y2="85.5" stroke="#2e4b3f" stroke-width="0.9" stroke-linecap="round"/>
+  <line x1="80" y1="90" x2="87" y2="90.5" stroke="#2e4b3f" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="130" y1="90" x2="123" y2="90.5" stroke="#2e4b3f" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M105 56 C99 56 96 63 96 69 C96 76 100 80 105 80 C110 80 114 76 114 69 C114 63 111 56 105 56" fill="none" stroke="#5b7e8c" stroke-width="1.4"/>
+  <line x1="74" y1="106" x2="136" y2="106" stroke="#adbfae" stroke-width="1.2" stroke-linecap="round"/>
+  <text x="105" y="133" text-anchor="middle" fill="#1c2b26" font-size="15" letter-spacing="7" font-family="Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif">AVEN</text>
+  <text x="105" y="147" text-anchor="middle" fill="#6f8579" font-size="8.5" letter-spacing="4.5" font-family="Avenir Next,Segoe UI,sans-serif">PROPERTY</text>
+  </svg>

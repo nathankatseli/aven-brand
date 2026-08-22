@@ -1,0 +1,53 @@
+{
+  "brand": "AVEN Property",
+  "version": "1.0.0",
+  "registers": {
+    "calm": "Owner-facing. Precise, warm, unhurried. Specific over superlative. Used for website, proposals, standards, owner email, SMS, legal/financial.",
+    "real-talk": "Cara after seventeen years, telling it straight. Funny, candid, Reddit-literate. Used for social captions, the investor booklet, videos."
+  },
+  "core": [
+    "Plain English. Short sentences. First person plural - 'we', never 'the agency'.",
+    "Specific over superlative: a number, a timeframe, a named check.",
+    "Say it straight, with respect. Hard news delivered calmly, never softened into vagueness.",
+    "Australian spelling. No exclamation marks. Taglines always set straight, never italic.",
+    "Kind, always - including about tenants, trades and other agents."
+  ],
+  "flex": {
+    "humour":      { "scale": "0-3", "standards": 0, "owner-email": 0, "listing": 1, "review-reply": 1, "social": 3, "booklet": 3 },
+    "candour":     { "scale": "0-3", "standards": 1, "owner-email": 2, "listing": 1, "review-reply": 1, "social": 3, "booklet": 3 },
+    "informality": { "scale": "0-3", "standards": 0, "owner-email": 1, "listing": 1, "review-reply": 2, "social": 3, "booklet": 2 },
+    "length":      { "sms": "one screen", "owner-email": "medium", "listing": "short", "social": "one idea", "booklet": "long" },
+    "pop-literacy":{ "scale": "0-3", "website": 0, "owner-email": 0, "social": 3, "booklet": 3 }
+  },
+  "never": [
+    "Promise outcomes we can't control - rent levels, tenant behaviour, the market.",
+    "Hype words: premium, passionate, exceptional, stress-free, seamless, world-class, bespoke.",
+    "Mock a tenant or an owner. Name a competitor.",
+    "Urgency theatre, ALL CAPS sentences, emoji in owner-facing email or standards.",
+    "Sarcasm in a complaint reply.",
+    "Italics on taglines. Exclamation marks anywhere."
+  ],
+  "channel-defaults": {
+    "website": "calm", "proposal": "calm", "standards": "calm", "owner-email": "calm", "sms": "calm",
+    "review-reply": "calm-warmer", "tenant-email": "calm-warmer",
+    "instagram": "real-talk", "tiktok": "real-talk", "facebook": "real-talk", "booklet": "real-talk", "video": "real-talk",
+    "legal-financial": "calm-checked"
+  },
+  "lines": {
+    "soi": "Calm, by design.",
+    "hero": "Calm. Clear. Considered.",
+    "alternates": ["Calm, by design.", "Managed properly. Guaranteed."],
+    "guarantee": "If we don't deliver, you don't pay.",
+    "campaign": "Never chase your property manager again.",
+    "segment-remote-investor": "Property income, without the second job.",
+    "service-page": "Answered. Inspected. Guaranteed.",
+    "testimonial": "The last property manager you'll switch to."
+  },
+  "name-rules": {
+    "pronounce": "AY-ven - rhymes with haven",
+    "wordmark": "AVEN (caps) in the mark; Aven in running text",
+    "public-brand": "AVEN Property",
+    "descriptor": "Property Management - beneath the brand on formal documents, search, Google Business; never inside the mark",
+    "never": ["Aven Realty", "Aven PM"]
+  }
+}

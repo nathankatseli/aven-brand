@@ -1,0 +1,13 @@
+<svg width="210" height="122" viewBox="0 40 210 122" role="img" aria-label="Fine-line gable roof with eaves and the Southern Cross at the centre of the home">
+  <path d="M58 102 L105 56 L152 102" fill="none" stroke="#2e4b3f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="58" y1="102" x2="58" y2="112" stroke="#2e4b3f" stroke-width="1.7" stroke-linecap="round"/>
+  <line x1="152" y1="102" x2="152" y2="112" stroke="#2e4b3f" stroke-width="1.7" stroke-linecap="round"/>
+  <line x1="74" y1="112" x2="136" y2="112" stroke="#adbfae" stroke-width="1.2" stroke-linecap="round"/>
+  <circle cx="105" cy="68" r="1.8" fill="#5b7e8c"/>
+  <circle cx="94" cy="77" r="1.6" fill="#5b7e8c"/>
+  <circle cx="116" cy="79" r="1.6" fill="#5b7e8c"/>
+  <circle cx="107" cy="92" r="2.2" fill="#5b7e8c"/>
+  <circle cx="100" cy="84" r="0.9" fill="#5b7e8c"/>
+  <text x="105" y="140" text-anchor="middle" fill="#1c2b26" font-size="15" letter-spacing="7" font-family="Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif">AVEN</text>
+  <text x="105" y="154" text-anchor="middle" fill="#6f8579" font-size="8.5" letter-spacing="4.5" font-family="Avenir Next,Segoe UI,sans-serif">PROPERTY</text>
+  </svg>

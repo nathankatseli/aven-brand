@@ -1,0 +1,7 @@
+<svg width="210" height="160" viewBox="0 0 210 160" role="img" aria-label="AVEN wordmark above a fine rule broken by a falling raindrop">
+  <text x="105" y="78" text-anchor="middle" fill="#1c2b26" font-size="34" letter-spacing="5" font-family="Iowan Old Style,Palatino Linotype,Palatino,Georgia,serif">AVEN</text>
+  <line x1="46" y1="96" x2="120" y2="96" stroke="#2e4b3f" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="131" cy="96" r="2.6" fill="#5b7e8c"/>
+  <line x1="142" y1="96" x2="164" y2="96" stroke="#2e4b3f" stroke-width="1.4" stroke-linecap="round"/>
+  <text x="105" y="122" text-anchor="middle" fill="#6f8579" font-size="9.5" letter-spacing="5.5" font-family="Avenir Next,Segoe UI,sans-serif">PROPERTY</text>
+  </svg>
