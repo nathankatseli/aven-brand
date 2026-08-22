@@ -14,7 +14,7 @@
 <div class="topbar dark" id="topbar"><div class="in">
   <div class="wm"><img src="kit/marks/icons/avenue-icon.svg" alt="">AVEN<small>PROPERTY</small></div>
   <div class="ch" id="tb-ch"><span class="n">00</span>Where we've landed</div>
-  <div class="cnt" id="tb-cnt"><i></i><span data-counter>0 of 0 calls made</span></div>
+  <div class="cnt" id="tb-cnt"><i></i><span data-counter>0 of 0 calls made</span><span class="sv" id="tb-save"></span></div>
   <div class="prog" id="tb-prog"></div>
 </div></div>
 
@@ -80,13 +80,14 @@
     <div class="lock open" data-for="type-serif"><div class="k">Type</div><div class="v">Serif + quiet sans</div><div class="s">Pairing open — live card</div></div>
     <div class="lock open" data-for="colour"><div class="k">Palette</div><div class="v">Evening Pine</div><div class="s">Proposed — confirm</div></div>
   </div>
-  <p class="position" style="margin-top:22px;font-size:15px"><span data-counter>0 of 0 calls made</span> on this device. Calls save as you go; export them at the end in chapter 14.</p>
+  <p class="position" style="margin-top:22px;font-size:15px"><span data-counter>0 of 0 calls made</span>. Calls save to the shared sheet as you go; chapter 14 has the table and the export.</p>
 </section>
 
 <!-- ===================== 01 ===================== -->
 <section class="chapter" id="c01-how">
   <div class="part reveal"><div class="big-num">01</div><div class="p-num">Chapter 01</div><h2 class="serif">How this session works</h2>
-  <p>Each chapter shows where we've landed, why, and what the alternatives were. Most chapters end in a card marked <b>Your call</b> — tap an option, add a note if you want to, and move on. Nothing leaves this device until you export: chapter 14 turns every call into a table you can copy into chat or Notion.</p>
+  <p>Each chapter shows where we've landed, why, and what the alternatives were. Most chapters end in a card marked <b>Your call</b> — tap an option, add a note if you want to, and move on. Every call saves the moment you make it — to a shared sheet, so Cara and Nathan see the same answers on any device — and chapter 14 turns them into a table you can copy into chat or Notion.</p>
+  <fieldset class="who" id="who"><legend>Who's making calls on this device?</legend><div class="opts"><label><input type="radio" name="who" value="Cara"> Cara</label><label><input type="radio" name="who" value="Nathan"> Nathan</label></div><p class="hint">Recorded beside each call. Change it any time.</p></fieldset>
   <p>Two rules of thumb for reading it. First, "locked" means the groundwork is done (names registered, domains held); "proposed" means it's our recommendation and yours to change. Second, where the words are yours — the guarantees, the values, the name story — they're marked as yours and kept as you wrote them.</p></div>
 </section>
 
@@ -410,7 +411,7 @@
       <div style="flex:3;background:#ADBFAE;color:#2E4B3F">sage 3</div>
     </div>
     <p class="position" style="font-size:15px;margin-top:14px">Proportion, not palette, is what makes it calm: mostly cloud and paper, pine for structure, rain as a single accent, sage as the quiet ground line. A page that's mostly green isn't on brand; a page that's mostly light with one green moment is.</p>
-    <table class="spec">
+    <div class="tscroll"><table class="spec">
       <tr><th>Pair</th><th>Use</th><th>Body text</th><th>Large / bold</th></tr>
       <tr><td>Ink on Cloud</td><td>default text</td><td class="ok">passes</td><td class="ok">passes</td></tr>
       <tr><td>Pine on Cloud</td><td>display, wordmark</td><td class="ok">passes</td><td class="ok">passes</td></tr>
@@ -418,7 +419,7 @@
       <tr><td>Sage-text #6F8579 on Cloud</td><td>metadata, eyebrows, the PROPERTY line — never essential copy</td><td class="no">fails (3.61:1) — never body copy</td><td class="ok">passes</td></tr>
       <tr><td>Sage #ADBFAE on Cloud</td><td>lines and grounds only</td><td class="no">fails — never text</td><td class="no">fails</td></tr>
       <tr><td>Cloud on Pine</td><td>reversed panels, sign boards</td><td class="ok">passes</td><td class="ok">passes</td></tr>
-    </table>
+    </table></div>
     <div class="checks">
       <div class="check"><div class="k">Two sages, on purpose</div><div class="v"><b>Sage #ADBFAE</b> is a surface colour — ground lines, chips, soft dividers. <b>Sage-text #6F8579</b> is its darker sibling for eyebrows, metadata and the PROPERTY line in the wordmark — quiet by design, so never for anything the reader must be able to read. Body copy is always Ink or the body greys.</div></div>
       <div class="check"><div class="k">Amber is internal</div><div class="v">The amber in this document marks an open decision. It exists for working documents only and never appears in anything a customer sees.</div></div>
@@ -636,15 +637,15 @@
 <!-- ===================== 14 ===================== -->
 <section class="chapter" id="c14-decisions">
   <div class="part reveal"><div class="big-num">14</div><div class="p-num">Chapter 14</div><h2 class="serif">Decisions</h2>
-  <p>Every call on this device, in one table. Copy it as Markdown into chat or Notion, or download the JSON. Calls are saved only in this browser — exporting is how they travel.</p></div>
+  <p>Every call, in one table, with who made it and when. Saved to the shared sheet automatically; copy it as Markdown into chat or Notion, or download the JSON. <span class="syncnote" id="syncnote"></span></p></div>
   <section class="option reveal">
     <div class="dec-actions">
       <button class="btn" data-act="copy-md" type="button">Copy as Markdown</button>
       <button class="btn ghost" data-act="download-json" type="button">Download JSON</button>
-      <button class="btn danger" data-act="reset" type="button">Reset this device</button>
+      <button class="btn danger" data-act="reset" type="button">Clear every call</button>
     </div>
     <div class="toast" aria-live="polite"></div>
-    <table class="dec"><thead><tr><th>Aspect</th><th>Call</th><th>Note</th></tr></thead><tbody></tbody></table>
+    <div class="tscroll"><table class="dec"><thead><tr><th>Aspect</th><th>Call</th><th>Note</th><th>By</th></tr></thead><tbody></tbody></table></div>
   </section>
 </section>
 

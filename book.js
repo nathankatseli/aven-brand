@@ -1,7 +1,14 @@
-/* AVEN brand book — rail + decision capture + export. No dependencies, no network. */
+/* AVEN brand book — rail + decision capture + shared save (Apps Script relay) + export. No dependencies. */
 (function () {
   "use strict";
-  var KEY = "aven-brand:v1";
+  var KEY = "aven-brand:v1", WHO_KEY = "aven-brand:who";
+  /* Shared save: an Apps Script web app that upserts calls into a Google Sheet (src/relay/Code.gs).
+     No credentials here on purpose - the URL can only write brand-book calls into that one sheet. */
+  var RELAY = "https://script.google.com/macros/s/AKfycbx-8iQLUS5ONlqd8uOMgYrq1JX1BJZgGeuuTiiG-BB0ccTKqUO9rOENCL_GAmWMvv0/exec";
+  (function () { var m = /[?&]relay=([^&]+)/.exec(location.search); if (m) RELAY = decodeURIComponent(m[1]); })();  /* dev override */
+  var meta = {};            /* id -> {by, at} from the sheet */
+  var pending = {};         /* id -> call record waiting to be posted */
+  var online = null;        /* null unknown, true/false after first contact */
   var FONT_SERIF = {
     "source-serif-4": '"Cand Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif',
     "crimson-pro": '"Cand Crimson Pro","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif',
@@ -43,6 +50,55 @@
     save(state);
   }
 
+  function who() { try { return localStorage.getItem(WHO_KEY) || ""; } catch (e) { return ""; } }
+  function setStatus(text, err) {
+    var el = document.getElementById("tb-save"), sn = document.getElementById("syncnote");
+    if (el) { el.textContent = text; el.classList.toggle("on", !!text); el.classList.toggle("err", !!err); }
+    if (sn) { sn.textContent = text ? (err ? text + "." : "Shared sheet: " + text.toLowerCase() + ".") : ""; sn.classList.toggle("err", !!err); }
+  }
+  function hhmm(iso) { var d = iso ? new Date(iso) : new Date(); return isNaN(d) ? "" : d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+
+  /* merge the sheet's state in, without clobbering a card that is being edited or has an unsent change */
+  function applyRemote(remote) {
+    if (!remote || !remote.calls) return;
+    var active = document.activeElement && document.activeElement.closest ? document.activeElement.closest("fieldset.call") : null;
+    var activeId = active ? active.dataset.id : null;
+    var calls = {};
+    Object.keys(remote.calls).forEach(function (id) {
+      var r = remote.calls[id];
+      meta[id] = { by: r.by || "", at: r.at || "" };
+      if (r.choice || r.note) calls[id] = { label: r.label, choice: r.choice, choiceLabel: r.choiceLabel, note: r.note };
+    });
+    fieldsets().forEach(function (fs) {
+      var id = fs.dataset.id;
+      if (id === activeId || pending[id]) { if (state.calls[id]) calls[id] = state.calls[id]; else delete calls[id]; }
+    });
+    state.calls = calls; save(state); hydrate(); paint();
+  }
+
+  var pushTimer = null;
+  function queuePush(id) {
+    var fs = document.querySelector('fieldset.call[data-id="' + id + '"]');
+    var c = state.calls[id] || { label: fs ? fs.dataset.label : id, choice: "", choiceLabel: "", note: "" };
+    pending[id] = c;
+    meta[id] = { by: who() || "this device", at: new Date().toISOString() };
+    setStatus("Saving\u2026");
+    clearTimeout(pushTimer); pushTimer = setTimeout(push, 700);
+  }
+  function push() {
+    var batch = pending; pending = {};
+    if (!Object.keys(batch).length) return;
+    fetch(RELAY, { method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify({ book: "aven-brand", by: who() || "unknown", calls: batch }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error(j && j.error || "bad reply"); online = true; applyRemote(j); setStatus("Saved " + hhmm()); })
+      .catch(function () { online = false; Object.keys(batch).forEach(function (id) { if (!pending[id]) pending[id] = batch[id]; }); setStatus("Offline \u2014 kept on this device, will retry", true); clearTimeout(pushTimer); pushTimer = setTimeout(push, 15000); });
+  }
+  function pull(first) {
+    fetch(RELAY, { cache: "no-store" }).then(function (r) { return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error("bad reply"); online = true; applyRemote(j); setStatus(j.updated ? "Synced \u00b7 last call " + hhmm(j.updated) : "Synced"); })
+      .catch(function () { online = false; setStatus("Offline \u2014 calls kept on this device", true); });
+  }
+
   function hydrate() {
     fieldsets().forEach(function (fs) {
       var saved = state.calls[fs.dataset.id];
@@ -81,7 +137,9 @@
   function rows() {
     return fieldsets().map(function (fs) {
       var c = readCall(fs);
-      return { label: c.label, choice: c.choices.map(function (x) { return x.label; }).join(", "), note: c.note };
+      var m = meta[fs.dataset.id] || {};
+      var when = m.at ? new Date(m.at) : null;
+      return { label: c.label, choice: c.choices.map(function (x) { return x.label; }).join(", "), note: c.note, by: (c.choices.length || c.note) && m.by ? m.by + (when && !isNaN(when) ? " \u00b7 " + when.toLocaleDateString([], { day: "numeric", month: "short" }) : "") : "" };
     });
   }
 
@@ -93,14 +151,15 @@
       var td1 = document.createElement("td"); td1.textContent = r.label;
       var td2 = document.createElement("td"); td2.textContent = r.choice || "open"; td2.className = r.choice ? "c" : "o";
       var td3 = document.createElement("td"); td3.textContent = r.note || "";
-      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tb.appendChild(tr);
+      var td4 = document.createElement("td"); td4.textContent = r.by || ""; td4.className = "by";
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4); tb.appendChild(tr);
     });
   }
 
   function toMarkdown() {
     var d = new Date().toISOString().slice(0, 10);
-    var out = ["# AVEN brand book — decisions (" + d + ")", "", "| Aspect | Call | Note |", "|---|---|---|"];
-    rows().forEach(function (r) { out.push("| " + r.label + " | " + (r.choice || "open") + " | " + r.note.replace(/\|/g, "/").replace(/\n/g, " ") + " |"); });
+    var out = ["# AVEN brand book — decisions (" + d + ")", "", "| Aspect | Call | Note | By |", "|---|---|---|---|"];
+    rows().forEach(function (r) { out.push("| " + r.label + " | " + (r.choice || "open") + " | " + r.note.replace(/\|/g, "/").replace(/\n/g, " ") + " | " + (r.by || "") + " |"); });
     return out.join("\n");
   }
 
@@ -112,9 +171,14 @@
       var on = Array.prototype.filter.call(document.querySelectorAll('input[name="mark-secondary"]'), function (i) { return i.checked; });
       if (on.length > 2) { on[0] === e.target ? on[1].checked = false : on[0].checked = false; }
     }
-    serialise(); paint();
+    serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id);
   });
-  document.addEventListener("input", function (e) { if (e.target.matches && e.target.matches("fieldset.call textarea")) { serialise(); paint(); } });
+  document.addEventListener("input", function (e) { if (e.target.matches && e.target.matches("fieldset.call textarea")) { serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id); } });
+  document.addEventListener("change", function (e) {
+    if (e.target.name !== "who") return;
+    try { localStorage.setItem(WHO_KEY, e.target.value); } catch (x) { /* noop */ }
+    paint();
+  });
 
   document.addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest("[data-act]"); if (!b) return;
@@ -126,7 +190,14 @@
       var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "aven-decisions-" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + ".json"; a.click();
       toast("Downloaded.");
     } else if (act === "reset") {
-      if (confirm("Clear every call and note on this device?")) { state = { v: 1, book: "aven-brand", calls: {} }; save(state); fieldsets().forEach(function (fs) { fs.querySelectorAll("input").forEach(function (i) { i.checked = false; }); var ta = fs.querySelector("textarea"); if (ta) ta.value = ""; }); paint(); toast("Cleared."); }
+      if (confirm("Clear every call and note - for everyone, on the shared sheet? (The sheet's Log keeps the history.)")) {
+        state = { v: 1, book: "aven-brand", calls: {} }; save(state); meta = {}; pending = {};
+        fieldsets().forEach(function (fs) { fs.querySelectorAll("input").forEach(function (i) { i.checked = false; }); var ta = fs.querySelector("textarea"); if (ta) ta.value = ""; }); paint();
+        setStatus("Clearing\u2026");
+        fetch(RELAY, { method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" }, body: JSON.stringify({ book: "aven-brand", by: who() || "unknown", reset: true }) })
+          .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok) throw new Error("bad"); setStatus("Cleared " + hhmm()); toast("Cleared - for everyone."); })
+          .catch(function () { setStatus("Offline \u2014 cleared on this device only", true); toast("Cleared on this device; the sheet was not reachable."); });
+      }
     }
   });
 
@@ -181,4 +252,12 @@
 
   hydrate();
   paint();
+  (function () {
+    var w = who(); if (w) { var r = document.querySelector('input[name="who"][value="' + w + '"]'); if (r) r.checked = true; }
+    if (!("fetch" in window)) { setStatus("This browser keeps calls on the device only", true); return; }
+    pull(true);
+    setInterval(function () { if (!Object.keys(pending).length && !document.hidden) pull(false); }, 45000);
+    window.addEventListener("online", function () { pull(false); if (Object.keys(pending).length) push(); });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden && !Object.keys(pending).length) pull(false); });
+  })();
 })();

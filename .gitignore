@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .DS_Store
 src/pii_patterns.txt
+src/relay/.clasp.json
+src/relay/relay_url.txt
