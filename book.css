@@ -70,7 +70,7 @@ header{padding:64px 0 0}
 
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 44px;margin-top:38px}
 @media(max-width:700px){.cols{grid-template-columns:1fr}}
-.panel h4{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--mist);margin-bottom:12px}
+.panel h4{font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--pine);font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--mist);margin-bottom:12px;min-height:46px;display:flex;align-items:flex-end}
 .panel ul{list-style:none}
 .panel li{font-size:15px;line-height:1.55;color:#37463f;padding:5px 0 5px 18px;position:relative}
 .panel li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:1.5px;background:var(--rain)}
@@ -94,13 +94,17 @@ blockquote.cara-q cite{display:block;margin-top:10px;font-family:var(--font-sans
 @media(max-width:700px){.quad{grid-template-columns:1fr}}
 .card{background:var(--paper);border:1px solid var(--mist);padding:0 0 18px;display:flex;flex-direction:column}
 .card.fav{border-color:var(--pine);border-width:1.5px}
-.card .art{padding:26px 22px;border-bottom:1px solid var(--mist);display:flex;align-items:center;justify-content:center;min-height:180px}
-.card .art img{width:210px;max-width:100%;height:auto}
+.card .art{padding:18px 22px;border-bottom:1px solid var(--mist);display:flex;align-items:center;justify-content:center;height:224px}
+.card .art img{width:210px;max-width:100%;height:100%;object-fit:contain}
 .card .body{padding:16px 22px 0;flex:1}
 .card .tag{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rain);font-weight:700}
 .card .tag .favnote{color:var(--pine)}
 .card .nm{font-size:18px;color:var(--pine);font-weight:600;margin-top:6px}
 .card p{font-size:14px;color:#42544b;margin-top:8px;line-height:1.55}
+.quad .card:last-child:nth-child(odd){grid-column:1/-1;flex-direction:row;padding:0}
+.quad .card:last-child:nth-child(odd) .art{border-bottom:0;border-right:1px solid var(--mist);min-width:290px}
+.quad .card:last-child:nth-child(odd) .body{padding:22px 24px 20px}
+@media(max-width:700px){.quad .card:last-child:nth-child(odd){flex-direction:column;padding:0 0 18px}.quad .card:last-child:nth-child(odd) .art{border-right:0;border-bottom:1px solid var(--mist);min-width:0}}
 
 .checks{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:700px){.checks{grid-template-columns:1fr}}
@@ -115,14 +119,14 @@ blockquote.cara-q cite{display:block;margin-top:10px;font-family:var(--font-sans
 @media(max-width:700px){.swatches{grid-template-columns:repeat(3,1fr)}}
 .sw{height:110px;border:1px solid var(--mist);padding:10px 12px;display:flex;flex-direction:column;justify-content:flex-end;font-size:11.5px;letter-spacing:.06em;color:rgba(255,255,255,.92)}
 .sw.light{color:var(--pine)}
-.sw b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.sw b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:inherit}
 table.spec{margin-top:26px;border-collapse:collapse;width:100%;background:var(--paper)}
 table.spec th,table.spec td{border:1px solid var(--mist);padding:9px 12px;font-size:14px;text-align:left;vertical-align:top}
 table.spec th{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-text);background:var(--cloud)}
 table.spec td.ok{color:var(--pine);font-weight:600}
 table.spec td.no{color:var(--amber);font-weight:600}
 .ratio{margin-top:26px;display:flex;height:44px;border:1px solid var(--mist)}
-.ratio div{display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);overflow:hidden;white-space:nowrap}
+.ratio div{display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);white-space:nowrap;min-width:max-content;padding:0 10px}
 
 /* ---------- type card ---------- */
 .typecard{margin-top:30px;background:var(--paper);border:1px solid var(--mist);padding:22px 26px}
@@ -134,7 +138,7 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .typecard .sample .big{font-size:30px;letter-spacing:.05em;color:var(--ink);line-height:1.15}
 .typecard .sample .caps{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-text);margin-top:8px}
 .typecard .sample .txt{font-size:15.5px;color:var(--body);margin-top:8px;line-height:1.55;max-width:56ch}
-.typecard .sample img{height:54px;margin-top:6px}
+.typecard .sample img{height:64px;margin:0 0 4px;display:block}
 .f-ss4{font-family:"Cand Source Serif 4",serif}.f-cp{font-family:"Cand Crimson Pro",serif}.f-ebg{font-family:"Cand EB Garamond",serif}
 .f-ns{font-family:"Cand Nunito Sans",sans-serif}.f-mu{font-family:"Cand Mulish",sans-serif}.f-in{font-family:"Cand Inter",sans-serif}
 
@@ -144,7 +148,7 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .imgdir .dir{background:var(--paper);border:1px solid var(--mist);display:flex;flex-direction:column}
 .imgdir .field{height:150px;display:flex;align-items:flex-end;padding:12px 14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.88)}
 .imgdir .field.f1{background:linear-gradient(160deg,#2e4b3f 0%,#5b7e8c 100%)}
-.imgdir .field.f2{background:var(--cloud);color:var(--pine);border-bottom:1px solid var(--mist)}
+.imgdir .field.f2{background:var(--cloud) url(kit/marks/04-avenue.svg) center 34%/120px no-repeat;color:var(--pine);border-bottom:1px solid var(--mist)}
 .imgdir .field.f3{background:linear-gradient(160deg,#6f8579 0%,#adbfae 100%)}
 .imgdir .bd{padding:16px 18px 18px}
 .imgdir .nm{font-size:17px;color:var(--pine);font-weight:600}
@@ -154,7 +158,7 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .imgdir li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:1.5px;background:var(--rain)}
 
 /* ---------- voice ---------- */
-.dials{margin-top:26px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.dials{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
 @media(max-width:700px){.dials{grid-template-columns:1fr 1fr}}
 .dial{background:var(--paper);border:1px solid var(--mist);padding:14px 16px}
 .dial .k{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-text);font-weight:700}
@@ -170,13 +174,13 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .sample .t.calm{font-family:var(--font-sans)}
 
 /* ---------- applications ---------- */
-.apps{margin-top:30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.apps{margin-top:30px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
 .app{min-width:0}
 @media(max-width:700px){.apps{grid-template-columns:minmax(0,1fr)}.webhead .bar{flex-wrap:wrap;white-space:normal}.bizcard img{width:64px}}
 .app{background:var(--paper);border:1px solid var(--mist);padding:18px 20px}
 .app .k{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-text);font-weight:700;margin-bottom:12px}
 .app p{font-size:13px;color:#42544b;margin-top:10px;line-height:1.5}
-.bizcard{aspect-ratio:1.6;background:var(--paper);border:1px solid var(--hair);box-shadow:0 1px 0 var(--mist);padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.bizcard{aspect-ratio:1.6;background:var(--paper);border:1px solid var(--hair);box-shadow:0 2px 12px rgba(28,43,38,.10);padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .bizcard .nm{font-family:var(--font-serif);font-size:18px;color:var(--ink)}
 .bizcard .rl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-text);margin-top:3px}
 .bizcard .ct{font-size:11px;color:var(--body);line-height:1.5}
@@ -195,12 +199,12 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .board .ph{font-size:13px;letter-spacing:.12em;color:var(--ink);margin-top:4px}
 .board .gl{font-size:11px;letter-spacing:.06em;color:var(--sage-text)}
 .tile{aspect-ratio:1;background:var(--pine);color:var(--cloud);padding:26px;display:flex;flex-direction:column;justify-content:space-between}
-.tile .q{font-family:var(--font-serif);font-size:24px;line-height:1.25;color:var(--cloud)}
+.tile .q{font-family:var(--font-serif);font-size:23px;line-height:1.25;color:var(--cloud);text-wrap:balance}
 .tile .q span{color:var(--sage)}
 .tile .foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage)}
 .tile .foot .drop{width:8px;height:8px;border-radius:50%;background:var(--rain)}
 .webhead{border:1px solid var(--mist);background:var(--paper)}
-.webhead .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--mist);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-text);white-space:nowrap}
+.webhead .bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--mist);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-text)}
 .webhead .bar .l{font-family:var(--font-serif);font-size:16px;letter-spacing:.2em;color:var(--ink);text-transform:none}
 .webhead .bar .l small{font-family:var(--font-sans);font-size:8px;letter-spacing:.3em;color:var(--sage-text);margin-left:8px}
 .webhead .hero2{padding:30px 18px 28px;background:linear-gradient(180deg,var(--paper),var(--cloud))}
@@ -217,9 +221,10 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .planttag .s{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-text);margin-top:6px}
 
 /* ---------- decision cards ---------- */
-fieldset.call{margin-top:30px;border:1px solid var(--mist);border-left:3px solid var(--amber);background:var(--paper);padding:18px 22px 20px}
+fieldset.call{margin-top:30px;border:1px solid var(--mist);border-left:3px solid var(--amber);background:var(--paper);padding:16px 22px 20px;min-width:0}
 fieldset.call.made{border-left-color:var(--rain)}
-fieldset.call legend{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:700;padding:0 8px}
+fieldset.call legend{float:left;width:100%;margin:0 0 10px;padding:0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.call .q{clear:both}
 fieldset.call.made legend{color:var(--rain)}
 .call .q{font-size:15.5px;color:var(--body-deep);line-height:1.55;max-width:64ch}
 .call .opts{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
@@ -229,7 +234,8 @@ fieldset.call.made legend{color:var(--rain)}
 .call textarea{margin-top:12px;width:100%;min-height:60px;border:1px solid var(--mist);background:var(--cloud);padding:10px 12px;font:inherit;font-size:13.5px;color:var(--ink);resize:vertical}
 .call .hint{margin-top:8px;font-size:12px;color:var(--sage-text)}
 .call .call-print{display:none}
-.lockstate{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--mist);background:var(--paper);color:var(--sage-text);padding:2px 8px;margin-left:10px;vertical-align:middle}
+.lockstate{display:inline;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--rain);margin-left:6px;font-weight:600}
+.lockstate::before{content:'· '}
 
 /* ---------- decisions chapter ---------- */
 .dec-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
@@ -269,3 +275,6 @@ footer .dbg{margin-top:14px;font-size:12px;color:var(--sage-text);font-family:ui
   .call .call-print{display:block;margin-top:10px;font-size:12.5px;color:var(--pine);font-weight:600}
   a{color:inherit;text-decoration:none}
 }
+
+fieldset[data-id="mark-primary"] .opts,fieldset[data-id="mark-secondary"] .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.favs img{image-rendering:auto}

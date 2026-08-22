@@ -106,7 +106,14 @@
 
   function toast(msg) { var t = document.querySelector(".toast"); if (t) { t.textContent = msg; setTimeout(function () { t.textContent = ""; }, 3500); } }
 
-  document.addEventListener("change", function (e) { if (e.target.closest && e.target.closest("fieldset.call")) { serialise(); paint(); } });
+  document.addEventListener("change", function (e) {
+    if (!(e.target.closest && e.target.closest("fieldset.call"))) return;
+    if (e.target.name === "mark-secondary" && e.target.checked) {
+      var on = Array.prototype.filter.call(document.querySelectorAll('input[name="mark-secondary"]'), function (i) { return i.checked; });
+      if (on.length > 2) { on[0] === e.target ? on[1].checked = false : on[0].checked = false; }
+    }
+    serialise(); paint();
+  });
   document.addEventListener("input", function (e) { if (e.target.matches && e.target.matches("fieldset.call textarea")) { serialise(); paint(); } });
 
   document.addEventListener("click", function (e) {

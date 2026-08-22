@@ -137,7 +137,7 @@ def candidates():
         if kind != "serif":
             continue
         g = _outline(_font(slug), "AVEN", 34, 5, 105, 78, "#1c2b26")
-        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 110" role="img" aria-label="AVEN wordmark in {name}">{g}'
+        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="36 44 138 60" role="img" aria-label="AVEN wordmark in {name}">{g}'
                '<line x1="46" y1="96" x2="120" y2="96" stroke="#2e4b3f" stroke-width="1.4" stroke-linecap="round"/>'
                '<circle cx="131" cy="96" r="2.6" fill="#5b7e8c"/>'
                '<line x1="142" y1="96" x2="164" y2="96" stroke="#2e4b3f" stroke-width="1.4" stroke-linecap="round"/></svg>')
