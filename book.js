@@ -148,6 +148,34 @@
     });
   }
 
+  /* topbar: chapter label, scroll progress, dark mode over ink sections; counter band; reveal */
+  (function () {
+    var tb = document.getElementById("topbar"), ch = document.getElementById("tb-ch"), prog = document.getElementById("tb-prog");
+    var chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter[id]"));
+    var names = {}; document.querySelectorAll(".rail a[href^='#']").forEach(function (a) { names[a.getAttribute("href").slice(1)] = a.textContent; });
+    function onScroll() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog) prog.style.width = (h > 0 ? Math.min(100, y / h * 100) : 0) + "%";
+      var cover = document.querySelector("header.cover"), foot = document.querySelector("footer.ink");
+      var dark = false;
+      if (cover && y < cover.offsetHeight - 56) dark = true;
+      if (foot && foot.getBoundingClientRect().top < 56) dark = true;
+      if (tb) tb.classList.toggle("dark", dark);
+      var rail = document.querySelector(".rail"); if (rail) rail.classList.toggle("onink", dark);
+      var cur = null; chapters.forEach(function (c) { if (c.getBoundingClientRect().top <= 120) cur = c; });
+      if (cur && ch) { var t = names[cur.id] || cur.id; var m = t.match(/^(\d\d)(.*)$/); ch.innerHTML = m ? '<span class="n">' + m[1] + '</span>' + m[2].trim() : t; }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll); onScroll();
+    var made = document.querySelector("[data-made]");
+    function syncMade() { var c = document.querySelector("[data-counter]"); if (!c || !made) return; var m = c.textContent.match(/^(\d+) of (\d+)/); if (m) { made.innerHTML = m[1] + "<small>/ " + m[2] + "</small>"; var tc = document.getElementById("tb-cnt"); if (tc) tc.classList.toggle("done", +m[1] === +m[2]); } }
+    new MutationObserver(syncMade).observe(document.querySelector("[data-counter]"), { childList: true, characterData: true, subtree: true }); syncMade();
+    if ("IntersectionObserver" in window) {
+      var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+      document.querySelectorAll(".reveal").forEach(function (el) { ro.observe(el); });
+    } else { document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); }); }
+  })();
+
   hydrate();
   paint();
 })();
