@@ -28,7 +28,7 @@ def _patterns():
 
 def _scan_files():
     out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout.split()
-    return [f for f in out if not f.endswith((".woff2", ".png", ".pdf"))]
+    return [f for f in out if not f.endswith((".woff2", ".png", ".pdf", ".jpg", ".jpeg", ".webp", ".ico"))]
 
 
 def gate():

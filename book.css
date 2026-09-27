@@ -163,8 +163,8 @@ header.cover .sheet{position:relative;z-index:2;width:100%;padding:calc(56px + v
 .layer .what{font-size:18px;color:var(--pine);margin-top:10px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
 .layer p{font-size:14.5px;color:#42544b;margin-top:10px;line-height:1.55}
 
-.cara{margin-top:var(--s3);font-size:12px;color:var(--sage-text);letter-spacing:.06em;display:flex;align-items:center;gap:10px}
-.cara::before{content:"";width:18px;height:1px;background:var(--sage);flex:none}
+.cara{margin-top:var(--s3);font-size:12px;color:var(--sage-text);letter-spacing:.06em;display:flex;align-items:center;gap:4px}
+.cara::before{content:"";width:18px;height:1px;background:var(--sage);flex:none;margin-right:8px}
 .cara b{color:var(--pine)}
 blockquote.cara-q{margin-top:var(--s4);padding:30px 34px 26px 38px;background:var(--paper);border:1px solid var(--mist);border-radius:var(--r-card);box-shadow:var(--shadow-2);font-family:var(--font-serif);font-size:20px;line-height:1.6;color:var(--body-deep);max-width:64ch;position:relative}
 blockquote.cara-q::before{content:"\201C";position:absolute;left:16px;top:2px;font-size:64px;line-height:1;color:var(--sage);opacity:.55}
@@ -245,7 +245,7 @@ table.spec td.no{color:var(--amber);font-weight:600}
 .imgdir .dir:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
 .imgdir .field{height:190px;display:flex;align-items:flex-end;padding:14px 16px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.9);position:relative}
 .imgdir .field.f1{background:radial-gradient(120% 90% at 20% 10%,#5b7e8c 0%,#2e4b3f 70%)}
-.imgdir .field.f2{background:var(--cloud) url(kit/marks/04-avenue.svg) center 36%/150px no-repeat;color:var(--pine);border-bottom:1px solid var(--mist)}
+.imgdir .field.f2{background:var(--cloud) url(kit/marks/20-avenue.svg) center 36%/150px no-repeat;color:var(--pine);border-bottom:1px solid var(--mist)}
 .imgdir .field.f3{background:radial-gradient(120% 90% at 80% 10%,#adbfae 0%,#6f8579 75%)}
 .imgdir .bd{padding:20px 22px 22px}
 .imgdir .nm{font-size:18px;color:var(--pine);font-weight:600;letter-spacing:-.01em}
@@ -433,9 +433,10 @@ footer.ink .dbg{font-size:11.5px;font-family:ui-monospace,monospace;color:rgba(2
 .topbar .sv.err{color:var(--amber)}
 .topbar.dark .sv{color:rgba(243,245,241,.6)}
 @media(max-width:700px){.topbar .sv{display:none}}
-fieldset.who{margin-top:var(--s4);border:1px solid var(--mist);border-radius:var(--r-card);padding:16px 20px 14px;background:var(--paper)}
-fieldset.who legend{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-text);padding:0 8px;font-weight:700}
-fieldset.who .opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+fieldset.who{margin-top:var(--s4);border:1px solid var(--mist);border-radius:var(--r-card);padding:22px 26px 18px;background:var(--paper);box-shadow:var(--shadow-1);min-width:0;overflow:hidden}
+fieldset.who legend{float:left;width:100%;margin:0 0 12px;padding:0;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-text);font-weight:700;display:flex;align-items:center;gap:10px}
+fieldset.who legend::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
+fieldset.who .opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;clear:both}
 fieldset.who .opts label{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--mist);background:var(--cloud);padding:9px 16px;font-size:13.5px;color:#37463f;cursor:pointer;min-height:42px;border-radius:var(--r-pill);transition:all .25s var(--ease)}
 fieldset.who .opts label:has(input:checked){border-color:var(--pine);background:var(--pine);color:var(--cloud);font-weight:600}
 fieldset.who .opts input{accent-color:var(--pine)}
@@ -443,3 +444,7 @@ fieldset.who .hint{font-size:12.5px;color:var(--sage-text);margin-top:10px}
 .syncnote{color:var(--sage-text);font-size:14px}
 .syncnote.err{color:var(--amber)}
 table.dec td.by{color:var(--sage-text);font-size:12.5px;white-space:nowrap}
+
+/* 27/9 presentation audit */
+.sw{justify-content:space-between!important}
+#c06-promise .panel h4{min-height:64px}

@@ -239,7 +239,7 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll); onScroll();
     var made = document.querySelector("[data-made]");
-    function syncMade() { var c = document.querySelector("[data-counter]"); if (!c || !made) return; var m = c.textContent.match(/^(\d+) of (\d+)/); if (m) { made.innerHTML = m[1] + "<small>/ " + m[2] + "</small>"; var tc = document.getElementById("tb-cnt"); if (tc) tc.classList.toggle("done", +m[1] === +m[2]); } }
+    function syncMade() { var c = document.querySelector("[data-counter]"); if (!c || !made) return; var m = c.textContent.match(/^(\d+) of (\d+)/); if (m) { made.innerHTML = m[1] + "<small>/" + m[2] + "</small>"; var tc = document.getElementById("tb-cnt"); if (tc) tc.classList.toggle("done", +m[1] === +m[2]); } }
     new MutationObserver(syncMade).observe(document.querySelector("[data-counter]"), { childList: true, characterData: true, subtree: true }); syncMade();
     if ("IntersectionObserver" in window) {
       var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
