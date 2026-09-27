@@ -448,3 +448,22 @@ table.dec td.by{color:var(--sage-text);font-size:12.5px;white-space:nowrap}
 /* 27/9 presentation audit */
 .sw{justify-content:space-between!important}
 #c06-promise .panel h4{min-height:64px}
+
+/* ---------- promise second draft (27/9) ---------- */
+.draft{margin-top:var(--s2)}
+.ditem{padding:20px 0 18px;border-bottom:1px solid var(--mist)}
+.ditem:last-child{border-bottom:0}
+.ditem .dh{font-size:14.5px;color:#42544b;line-height:1.65;max-width:860px}
+.ditem .dh b{color:var(--ink)}
+.ditem .dh .hz{margin-left:8px}
+fieldset.call.wordbox{margin:12px 0 0;padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;max-width:860px}
+fieldset.call.wordbox textarea{margin-top:0;min-height:52px}
+fieldset.call.wordbox.made textarea{border-color:var(--pine)}
+/* board second draft */
+.board{width:100%;max-width:360px;aspect-ratio:1.3;background:var(--paper);border:1px solid var(--mist);border-radius:8px;display:flex;flex-direction:column;text-align:left;padding:0;overflow:hidden;box-shadow:var(--shadow-3)}
+.board .bd-top{flex:1;padding:26px 26px 18px;position:relative;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.board .fl{font-family:var(--font-serif);font-size:42px;color:var(--pine);letter-spacing:.02em;line-height:1}
+.board .bp{font-family:var(--font-serif);font-size:26px;color:var(--ink);letter-spacing:.06em}
+.board .bd-top img{position:absolute;right:20px;bottom:16px;width:64px;opacity:.9}
+.board .bd-band{background:var(--pine);color:var(--cloud);display:flex;justify-content:space-between;align-items:center;padding:12px 20px;font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.board .bd-band span:last-child{letter-spacing:.08em;text-transform:none;color:var(--sage)}

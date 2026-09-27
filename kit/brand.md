@@ -8,13 +8,13 @@ Paste this into a system prompt, a design tool, or a briefing. Tokens and marks 
 
 **Organising idea.** *Calm, by design.* Calm is the promise; structure is why it's true. Three proofs: published, guaranteed standards · always within reach (every enquiry answered within a business day) · the manager who stays (small book, no handovers).
 
-**Lines.** Hero: *Calm. Clear. Considered.* Alternates: *Calm, by design.* / *Managed properly. Guaranteed.* Guarantee line, always visible: *If we don't deliver, you don't pay.* Taglines are always set straight — never italic — and never carry an exclamation mark.
+**Lines.** Hero tagline OPEN (27/9 shortlist): *Calm. Clear. Considered.* / *Managing today. Building tomorrow.* / *Property, with the future in mind.* / *Where your property is going matters.* Guarantee line *If we don't deliver, you don't pay.* lives on service pages and proposals only, always with its reason. Taglines are always set straight, never italic, never an exclamation mark. The slash ( / ) is a brand device pairing two halves, a space each side.
 
 **Voice.** Two registers. *Calm* for anything owner-facing: plain English, specific over superlative, warm, unhurried. *Real-talk* for social and education content: Cara telling it straight — funny, candid, Reddit-literate. Both share the core (we, short sentences, Australian spelling, kind always) and the nevers (no hype words, no promised outcomes, no mocking tenants or owners, no competitor names, no ALL CAPS, no sarcasm in complaints). Full rules in `voice.json`.
 
 **Colour.** Evening Pine: Ink #1C2B26 · Pine #2E4B3F · Rain #5B7E8C (the accent — the evening star in every mark) · Sage #ADBFAE (lines and grounds only) · Sage-text #6F8579 (captions, eyebrows) · Cloud #F3F5F1 (page) · Paper #FBFCFA (cards). Proportion makes it calm: mostly cloud and paper, pine for structure, one rain moment per surface. Amber #8A6D3B is internal-only (open decisions in working docs).
 
-**Type.** Serif for the wordmark, taglines and display (alias `AVEN Serif`); quiet sans for body and UI (alias `AVEN Sans`). Sentence case; wide-tracked caps only for small labels. No bold serif headlines.
+**Type.** Serif = EB Garamond (called 27/9; alias `AVEN Serif`) for the wordmark, taglines and display; sans = Nunito Sans (alias `AVEN Sans`) for body and UI. Sentence case; wide-tracked caps only for small labels. No bold serif headlines. Voice never leans on em dashes — commas and full stops do the work.
 
 **Marks.** The Avenue family — Cara's brief: trees either side, a house in the middle, a road running down to it (the avenue of the name). Fine-line geometric, single pine weight, sage road and ground, one rain-blue evening star above the house in every mark. Eighteen drawings of the one idea in `kit/marks/20-37`; three earlier marks held in reserve (`01`, `02`, `12`). Small-format cut = The Lane (`31`, `icons/avenue-icon.svg`) for favicon, app icon and embroidery. Outlined SVGs; never re-type the wordmark.
 

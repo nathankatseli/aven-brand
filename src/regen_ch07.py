@@ -32,7 +32,7 @@ assert len(marks) == 14, len(marks)
 cards, opts_p, opts_s = [], [], []
 
 # --- option A: Cara's own mark ---
-cards.append('      <div class="card fav"><div class="art"><img src="assets/cara/cara-b.jpg" alt="Cara\'s A — her ChatGPT mark: a serif A with a tree-lined road running through it"></div>'
+cards.append('      <div class="card fav"><div class="art"><img src="assets/cara/cara-a.jpg" alt="Cara\'s A — her ChatGPT mark: the road's edges rise into an A-frame with the tree-lined avenue inside"></div>'
              '<div class="body"><div class="tag">A · <span class="favnote">Cara\'s pick</span></div><div class="nm serif">Cara\'s A</div>'
              '<p>Cara\'s own round, drawn in ChatGPT: a serif A as the avenue — the tree-lined road runs through the letter toward the light — with the wordmark beneath and the tagline set with a slash. This is the drawing the chapter now leads with.</p>'
              '<p><b>To productionise:</b> it\'s a raster image, so if it wins we redraw it as vector in the family grammar (closest drawn cousin: The A, option M) for signage, embroidery and one-colour print. Note it says <i>Real Estate</i> — the registered name is AVEN Property; the descriptor call lives in chapter 02.</p></div></div>')
@@ -68,9 +68,9 @@ for i, (f, v, n, d) in enumerate(RESERVE):
 NL = chr(10)
 section = f'''<section class="chapter" id="c07-mark">
   <div class="part reveal"><div class="big-num">07</div><div class="p-num">Chapter 07</div><h2 class="serif">The mark</h2>
-  <p>One idea — trees either side, a house in the middle, a road running down to it — and now Cara has drawn it herself. Her ChatGPT round leads this chapter as option A: the serif A with the avenue running through it, clean and confident. Behind it sit fourteen of our drawings of the same idea in the fine-line grammar — one pine line, the road always arriving at the door, one rain-blue evening star, the wordmark beneath — from the avenue in perspective to a heavy small cut that survives as a favicon. Whatever wins, the family gives it company: the small cut, the app tile, the dark version. One primary to pick; up to two secondaries to keep for campaigns.</p></div>
+  <p>One idea — trees either side, a house in the middle, a road running down to it — and now Cara has drawn it herself. Her ChatGPT round leads this chapter as option A: the A-frame with the avenue inside it, the frontrunner while other concepts are still explored. Behind it sit fourteen of our drawings of the same idea in the fine-line grammar — one pine line, the road always arriving at the door, one rain-blue evening star, the wordmark beneath — from the avenue in perspective to a heavy small cut that survives as a favicon. Whatever wins, the family gives it company: the small cut, the app tile, the dark version. One primary to pick; up to two secondaries to keep for campaigns.</p></div>
   <section class="option reveal">
-    <blockquote class="cara-q">Like a tree-lined avenue, every property journey should be guided with confidence, clarity and lasting value.<cite>Cara — the line the mark is drawn from</cite></blockquote>
+    <blockquote class="cara-q">Inspired by the words Avenue and Avenir, AVEN represents the road ahead.<cite>Cara — the story the mark is drawn from</cite></blockquote>
     <div class="quad">
 {NL.join(cards)}
     </div>

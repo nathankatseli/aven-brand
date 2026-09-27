@@ -24,7 +24,7 @@ CANDIDATES = {  # slug: (css2 family spec, display name, kind)
     "mulish":         ("Mulish:wght@400..700", "Mulish", "sans"),
     "inter":          ("Inter:wght@400..700", "Inter", "sans"),
 }
-RECOMMENDED = {"serif": "source-serif-4", "sans": "nunito-sans"}
+RECOMMENDED = {"serif": "eb-garamond", "sans": "nunito-sans"}  # Cara + Nathan, 27/9/26
 
 
 def tokens():

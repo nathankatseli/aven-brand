@@ -110,12 +110,14 @@
   }
 
   function paint() {
-    var made = 0, total = fieldsets().length;
+    var made = 0, total = 0;
     fieldsets().forEach(function (fs) {
       var c = readCall(fs);
-      var done = c.choices.length > 0;
+      var wb = fs.classList.contains("wordbox");
+      var done = wb ? !!c.note : c.choices.length > 0;
+      if (!wb) total++;
       fs.classList.toggle("made", done);
-      if (done) made++;
+      if (done && !wb) made++;
       var cp = fs.querySelector(".call-print");
       if (cp) cp.textContent = done ? ("Call: " + c.choices.map(function (x) { return x.label; }).join(", ") + (c.note ? " — " + c.note : "")) : "Call: not yet made";
       var lk = document.querySelector('.lock[data-for="' + fs.dataset.id + '"]');
