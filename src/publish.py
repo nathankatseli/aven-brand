@@ -103,7 +103,7 @@ def pdf():
     out = ROOT / "out"; out.mkdir(exist_ok=True)
     edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
     target = out / "AVEN Brand Book.pdf"
-    subprocess.run([edge, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={target}", f"file:///{(ROOT/'index.html').as_posix()}"], capture_output=True)
+    subprocess.run([edge, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={target}", "--virtual-time-budget=8000", f"file:///{(ROOT/'index.html').as_posix()}?all=1"], capture_output=True)
     print("pdf:", target, target.stat().st_size // 1024, "KB" if target.exists() else "FAILED")
 
 

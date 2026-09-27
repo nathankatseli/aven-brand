@@ -110,7 +110,7 @@
   }
 
   function paint() {
-    var made = 0, total = 0;
+    var made = 0, total = 0, byId = {}, list = [];
     fieldsets().forEach(function (fs) {
       var c = readCall(fs);
       var wb = fs.classList.contains("wordbox");
@@ -120,12 +120,73 @@
       if (done && !wb) made++;
       var cp = fs.querySelector(".call-print");
       if (cp) cp.textContent = done ? ("Call: " + c.choices.map(function (x) { return x.label; }).join(", ") + (c.note ? " — " + c.note : "")) : "Call: not yet made";
-      var lk = document.querySelector('.lock[data-for="' + fs.dataset.id + '"]');
-      if (lk) { lk.classList.toggle("made", done); lk.classList.toggle("open", !done); var v = lk.querySelector(".s"); if (v && done) v.textContent = c.choices.map(function (x) { return x.label; }).join(", "); }
+      var sec = fs.closest(".chapter");
+      var rec = { id: c.id, label: c.label, wb: wb, done: done, values: c.choices.map(function (x) { return x.value; }), choice: c.choices.map(function (x) { return x.label; }).join(", "), chapter: sec ? sec.id : "" };
+      byId[c.id] = rec; list.push(rec);
     });
     document.querySelectorAll("[data-counter]").forEach(function (el) { el.textContent = made + " of " + total + " calls made"; });
+    paintFolds(byId);
+    renderWhere(list);
     applyFonts();
     renderDecisions();
+  }
+
+  /* ---- V3: decided chapters fold; "Where we are" lists open + decided calls ---- */
+  var SHOW_ALL = /[?&]all=1/.test(location.search);
+  function revealIn(root) { root.querySelectorAll(".reveal:not(.in)").forEach(function (el) { el.classList.add("in"); }); if (root.classList && root.classList.contains("reveal")) root.classList.add("in"); }
+  function whenBy(ids) {
+    var b = null;
+    ids.forEach(function (id) { var m = meta[id]; if (m && m.at && (!b || m.at > b.at)) b = m; });
+    if (!b || !b.by) return "";
+    var d = new Date(b.at);
+    return b.by + (isNaN(d) ? "" : " \u00b7 " + d.toLocaleDateString([], { day: "numeric", month: "short" }));
+  }
+  function callDecided(spec, byId) {
+    var parts = spec.split("="), rec = byId[parts[0]];
+    if (!rec || !rec.done) return false;
+    return parts.length < 2 || rec.values.indexOf(parts[1]) >= 0;
+  }
+  function paintFolds(byId) {
+    document.querySelectorAll(".chapter[data-calls],.chapter[data-fold]").forEach(function (sec) {
+      var specs = (sec.dataset.calls || "").split(",").filter(Boolean);
+      var was = sec.classList.contains("folded");
+      var decided = sec.dataset.fold === "always" || (specs.length > 0 && specs.every(function (sp) { return callDecided(sp, byId); }));
+      sec.classList.toggle("folded", decided);
+      if (was && !decided) revealIn(sec);
+      var part = sec.querySelector(":scope > .part"); if (!part) return;
+      var line = part.querySelector(".decided");
+      if (!line) { line = document.createElement("div"); line.className = "decided"; part.appendChild(line); }
+      line.textContent = "";
+      if (!decided) return;
+      var ids = specs.map(function (sp) { return sp.split("=")[0]; });
+      var what = ids.map(function (id) { return byId[id] ? byId[id].choice : ""; }).filter(Boolean).join(" \u00b7 ") || sec.dataset.decided || "";
+      line.appendChild(document.createTextNode("Decided"));
+      if (what) { line.appendChild(document.createTextNode(" \u00b7 ")); var b = document.createElement("b"); b.textContent = what; line.appendChild(b); }
+      var by = whenBy(ids); if (by) line.appendChild(document.createTextNode(" \u00b7 " + by));
+      var btn = document.createElement("button"); btn.type = "button"; btn.className = "openbtn"; btn.dataset.open = sec.id; btn.dataset.toggle = "1";
+      btn.textContent = sec.classList.contains("expanded") ? "Fold" : "Open chapter";
+      line.appendChild(btn);
+    });
+  }
+  function openChapter(id, toggle) {
+    var sec = document.getElementById(id); if (!sec) return;
+    if (toggle && sec.classList.contains("expanded")) sec.classList.remove("expanded");
+    else { sec.classList.add("expanded"); revealIn(sec); }
+    paint();
+  }
+  function renderWhere(list) {
+    var dec = document.getElementById("where-decided"), opn = document.getElementById("where-open"); if (!dec || !opn) return;
+    dec.textContent = ""; opn.textContent = "";
+    list.filter(function (r) { return !r.wb; }).forEach(function (r) {
+      var a = document.createElement("a"); a.className = "row" + (r.done ? "" : " open"); a.href = "#" + r.chapter; a.dataset.open = r.chapter;
+      [["k", r.label], ["v", r.done ? r.choice : "open — make the call"], ["by", r.done ? whenBy([r.id]) : ""]].forEach(function (pr) { var e = document.createElement("span"); e.className = pr[0]; e.textContent = pr[1]; a.appendChild(e); });
+      (r.done ? dec : opn).appendChild(a);
+    });
+    if (!opn.children.length) { var e1 = document.createElement("div"); e1.className = "empty"; e1.textContent = "Nothing open. Every call is made."; opn.appendChild(e1); }
+    if (!dec.children.length) { var e2 = document.createElement("div"); e2.className = "empty"; e2.textContent = "Nothing decided yet."; dec.appendChild(e2); }
+    var cd = document.querySelector("#where-decided-acc .cnt"), co = document.querySelector("#where-open-acc .cnt");
+    if (cd) cd.textContent = dec.querySelectorAll(".row").length + " decided";
+    if (co) co.textContent = opn.querySelectorAll(".row").length + " open";
   }
 
   function applyFonts() {
@@ -191,6 +252,10 @@
       var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
       var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "aven-decisions-" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + ".json"; a.click();
       toast("Downloaded.");
+    } else if (act === "show-all") {
+      var on = document.body.classList.toggle("show-all");
+      b.textContent = on ? "Fold the decided chapters" : "Show everything";
+      if (on) revealIn(document.documentElement);
     } else if (act === "reset") {
       if (confirm("Clear every call and note - for everyone, on the shared sheet? (The sheet's Log keeps the history.)")) {
         state = { v: 1, book: "aven-brand", calls: {} }; save(state); meta = {}; pending = {};
@@ -201,6 +266,19 @@
           .catch(function () { setStatus("Offline \u2014 cleared on this device only", true); toast("Cleared on this device; the sheet was not reachable."); });
       }
     }
+  });
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-open]"); if (!b) return;
+    e.preventDefault();
+    openChapter(b.dataset.open, !!b.dataset.toggle);
+    var sec = document.getElementById(b.dataset.open); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  /* rail / TOC links into a folded chapter open it */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".rail a[href^='#'], .toc a[href^='#']"); if (!a) return;
+    var sec = document.getElementById(a.getAttribute("href").slice(1));
+    if (sec && sec.classList.contains("folded") && !sec.classList.contains("expanded")) openChapter(sec.id, false);
   });
 
   /* rail */
@@ -241,7 +319,7 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll); onScroll();
     var made = document.querySelector("[data-made]");
-    function syncMade() { var c = document.querySelector("[data-counter]"); if (!c || !made) return; var m = c.textContent.match(/^(\d+) of (\d+)/); if (m) { made.innerHTML = m[1] + "<small>/" + m[2] + "</small>"; var tc = document.getElementById("tb-cnt"); if (tc) tc.classList.toggle("done", +m[1] === +m[2]); } }
+    function syncMade() { var c = document.querySelector("[data-counter]"); if (!c || !made) return; var m = c.textContent.match(/^(\d+) of (\d+)/); if (m) { made.innerHTML = m[1] + "<small>/" + m[2] + "</small>"; var tot = document.querySelector("[data-total]"); if (tot) tot.textContent = m[2]; var tc = document.getElementById("tb-cnt"); if (tc) tc.classList.toggle("done", +m[1] === +m[2]); } }
     new MutationObserver(syncMade).observe(document.querySelector("[data-counter]"), { childList: true, characterData: true, subtree: true }); syncMade();
     if ("IntersectionObserver" in window) {
       var ro = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
@@ -254,6 +332,12 @@
 
   hydrate();
   paint();
+  if (SHOW_ALL) {
+    document.body.classList.add("show-all");
+    document.querySelectorAll("details.acc").forEach(function (d) { d.open = true; });
+    revealIn(document.documentElement);
+    var sa = document.querySelector('[data-act="show-all"]'); if (sa) sa.textContent = "Fold the decided chapters";
+  }
   (function () {
     var w = who(); if (w) { var r = document.querySelector('input[name="who"][value="' + w + '"]'); if (r) r.checked = true; }
     if (!("fetch" in window)) { setStatus("This browser keeps calls on the device only", true); return; }
