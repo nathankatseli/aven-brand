@@ -39,7 +39,7 @@ b{color:var(--ink);font-weight:600}
 .topbar.dark{background:rgba(20,33,28,.62);border-bottom-color:rgba(255,255,255,.08)}
 .topbar .in{max-width:920px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px}
 .topbar .wm{font-family:var(--font-serif);font-size:16px;letter-spacing:.22em;color:var(--ink);display:flex;align-items:center;gap:10px;transition:color .4s}
-.topbar .wm img{width:22px;height:22px;transition:filter .4s}
+.topbar .wm img{width:26px;height:26px;transition:filter .4s;object-fit:contain}
 .topbar.dark .wm img{filter:brightness(0) invert(.94)}
 .topbar .wm small{font-family:var(--font-sans);font-size:8.5px;letter-spacing:.32em;color:var(--sage-text);margin-left:2px}
 .topbar.dark .wm{color:var(--cloud)}
@@ -422,14 +422,6 @@ footer.ink .dbg{font-size:11.5px;font-family:ui-monospace,monospace;color:rgba(2
 .topbar .sv.err{color:var(--amber)}
 .topbar.dark .sv{color:rgba(243,245,241,.6)}
 @media(max-width:700px){.topbar .sv{display:none}}
-fieldset.who{margin-top:var(--s4);border:1px solid var(--mist);border-radius:var(--r-card);padding:22px 26px 18px;background:var(--paper);box-shadow:var(--shadow-1);min-width:0;overflow:hidden}
-fieldset.who legend{float:left;width:100%;margin:0 0 12px;padding:0;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-text);font-weight:700;display:flex;align-items:center;gap:10px}
-fieldset.who legend::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
-fieldset.who .opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;clear:both}
-fieldset.who .opts label{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--mist);background:var(--cloud);padding:9px 16px;font-size:13.5px;color:#37463f;cursor:pointer;min-height:42px;border-radius:var(--r-pill);transition:all .25s var(--ease)}
-fieldset.who .opts label:has(input:checked){border-color:var(--pine);background:var(--pine);color:var(--cloud);font-weight:600}
-fieldset.who .opts input{accent-color:var(--pine)}
-fieldset.who .hint{font-size:12.5px;color:var(--sage-text);margin-top:10px}
 .syncnote{color:var(--sage-text);font-size:14px}
 .syncnote.err{color:var(--amber)}
 table.dec td.by{color:var(--sage-text);font-size:12.5px;white-space:nowrap}
@@ -511,3 +503,34 @@ table.spec.hier td b{color:var(--ink)}
 .soi-card,.soi-card .f{min-width:0}
 .soi-card .f>*{min-width:0}
 .toc summary{min-height:44px;display:flex;align-items:center}
+
+/* ---------- V3.1: rendered logo concepts ---------- */
+.card .art.photo{padding:0;height:auto;aspect-ratio:1;background:#f4f1ea}
+.card .art.photo img{width:100%;height:100%;object-fit:cover}
+.quad .card.fav .art{padding:0;height:auto;aspect-ratio:1;background:#f4f1ea}
+.quad .card.fav .art img{width:100%;height:100%;object-fit:cover}
+details.fold-family{margin-top:var(--s6);border:1px solid var(--mist);border-radius:var(--r-card);background:var(--paper);padding:0 22px 6px;box-shadow:var(--shadow-1)}
+details.fold-family summary{cursor:pointer;padding:18px 0;font-weight:600;color:var(--pine);list-style:none;display:flex;align-items:center;gap:12px;min-height:44px}
+details.fold-family summary::-webkit-details-marker{display:none}
+details.fold-family summary::after{content:"+";margin-left:auto;font-size:20px;color:var(--sage-text);line-height:1}
+details.fold-family[open] summary::after{content:"\2013"}
+details.fold-family .quad{margin-top:var(--s2)}
+details.fold-family .quad.three{margin-bottom:var(--s4)}
+@media print{details.fold-family,details.fold-family>*{display:block!important}details.fold-family summary::after{display:none}}
+
+/* ---------- V3.1: abroad tile ---------- */
+.abroad-groups{grid-template-columns:1fr 1fr}
+@media(max-width:700px){.abroad-groups{grid-template-columns:1fr}}
+.abroad-groups .panel li{margin-bottom:12px}
+.abroad-groups .src{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-text);margin-left:6px}
+.abroad-groups .panel,.abroad-groups .panel li{min-width:0;overflow-wrap:anywhere}
+/* V3.1 fixes: odd last rendered card keeps a fixed photo; abroad panels never overflow */
+.quad:not(.three) .card:last-child:nth-child(odd) .art.photo{flex:0 0 300px;width:300px;height:300px;aspect-ratio:auto}
+@media(max-width:700px){.quad:not(.three) .card:last-child:nth-child(odd) .art.photo{flex:none;width:100%;height:auto;aspect-ratio:1}}
+.abroad-groups{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-width:0}
+@media(max-width:700px){.abroad-groups{grid-template-columns:minmax(0,1fr)}}
+.abroad-groups .panel{min-width:0;max-width:100%}
+.abroad-groups .panel ul,.abroad-groups .panel li,.abroad-groups .panel b{min-width:0;overflow-wrap:anywhere;word-break:break-word}
+
+@media(max-width:700px){.hz{white-space:normal;display:inline;line-height:2}}
+.draft .dh .hz{white-space:normal}

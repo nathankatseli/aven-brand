@@ -50,7 +50,7 @@
     save(state);
   }
 
-  function who() { try { return localStorage.getItem(WHO_KEY) || ""; } catch (e) { return ""; } }
+  function who() { return "Nathan & Cara"; }  /* calls are always made together, in a recorded session */
   function setStatus(text, err) {
     var el = document.getElementById("tb-save"), sn = document.getElementById("syncnote");
     if (el) { el.textContent = text; el.classList.toggle("on", !!text); el.classList.toggle("err", !!err); }
@@ -237,11 +237,6 @@
     serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id);
   });
   document.addEventListener("input", function (e) { if (e.target.matches && e.target.matches("fieldset.call textarea")) { serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id); } });
-  document.addEventListener("change", function (e) {
-    if (e.target.name !== "who") return;
-    try { localStorage.setItem(WHO_KEY, e.target.value); } catch (x) { /* noop */ }
-    paint();
-  });
 
   document.addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest("[data-act]"); if (!b) return;
@@ -339,7 +334,6 @@
     var sa = document.querySelector('[data-act="show-all"]'); if (sa) sa.textContent = "Fold the decided chapters";
   }
   (function () {
-    var w = who(); if (w) { var r = document.querySelector('input[name="who"][value="' + w + '"]'); if (r) r.checked = true; }
     if (!("fetch" in window)) { setStatus("This browser keeps calls on the device only", true); return; }
     pull(true);
     setInterval(function () { if (!Object.keys(pending).length && !document.hidden) pull(false); }, 45000);
