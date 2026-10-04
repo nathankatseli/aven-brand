@@ -1,0 +1,646 @@
+/* AVEN Property - business cards - combined stylesheet for the brand book.
+   = cards_a.css + cards_b.css + cards_c.css, in that order, unchanged. Do not edit here: edit the three sources and rebuild.
+   A (.bc-a) is the chosen direction; B (.bc-b) and C (.bc-c) are the alternates.
+   Every rule is scoped under its root class. Shared structure: root > .bc-item > .bc-cap (caption) + .bc-card (the card).
+   Fragments: cards_a.fragment.html, cards_b.fragment.html, cards_c.fragment.html (image paths relative to the repo root). */
+
+/* ============================== cards_a.css ============================== */
+/* AVEN Property · business cards · direction A "portrait-led, landscape" (the chosen direction)
+   Everything is scoped under .bc-a. Structure: .bc-a (grid) > .bc-item > .bc-cap (caption) + .bc-card (the card).
+   Type follows --font-serif / --font-sans, colour follows the Evening Pine tokens (with fallbacks).
+   Each card is a size container: every inner measure is in cqw, so a card scales as one piece.
+   90 x 55 mm, so 1mm = 1.111cqw, the 4mm safe margin = 4.45cqw, and 1cqw of type = 2.55pt.
+   Smallest printed type: 1.9cqw caps (4.9pt) and 2.4cqw sentence case (6.1pt). */
+.bc-a,.bc-a *,.bc-a *::before,.bc-a *::after{box-sizing:border-box;margin:0;padding:0}
+.bc-a{
+  --bc-ink:var(--ink,#1c2b26);--bc-pine:var(--pine,#2e4b3f);--bc-rain:var(--rain,#5b7e8c);
+  --bc-sage:var(--sage,#adbfae);--bc-sage-text:var(--sage-text,#6f8579);--bc-cloud:var(--cloud,#f3f5f1);
+  --bc-paper:var(--paper,#fbfcfa);--bc-mist:var(--mist,#dfe6e0);--bc-body:var(--body,#3d4f47);
+  --bc-serif:var(--font-serif,"AVEN Serif",Georgia,serif);
+  --bc-sans:var(--font-sans,"AVEN Sans","Segoe UI",sans-serif);
+  --bc-shadow:0 0 0 1px rgba(28,43,38,.045),0 1px 2px rgba(28,43,38,.06),0 18px 40px -18px rgba(28,43,38,.28);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:34px 40px;justify-content:center;align-items:start;width:100%;max-width:800px;margin:0 auto;
+  font-family:var(--bc-sans);font-style:normal;font-weight:400;text-align:left;text-transform:none;letter-spacing:normal;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+
+/* ---------- item = caption + card. Two per row on desktop, one on a phone; an odd last item keeps the card width ---------- */
+.bc-a .bc-item{display:flex;flex-direction:column;width:100%;max-width:380px;min-width:0;justify-self:center}
+.bc-a .bc-cap{margin-bottom:10px;font-size:10.5px;line-height:1.3;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--bc-sage-text)}
+
+/* ---------- the card ---------- */
+.bc-a .bc-card{
+  position:relative;display:grid;grid-template-rows:minmax(0,1fr);width:100%;aspect-ratio:90/55;
+  container-type:inline-size;overflow:hidden;border-radius:3px;
+  background:var(--bc-paper);color:var(--bc-ink);box-shadow:var(--bc-shadow);line-height:1;
+}
+
+/* ---------- lockup: the founder mark + the name set in type ---------- */
+.bc-a .bc-lockup{display:flex;align-items:center;gap:2.7cqw}
+/* The mark is painted as ONE flat ink. The PNG is pushed out of its (clipped) box and a zero-blur
+   drop-shadow of it, in the ink colour, lands where the artwork was: the alpha of the PNG in a single colour.
+   Unlike mask-image this needs no same-origin fetch, so it also renders from file:// and in the PDF build.
+   The box crops the ~9% transparent margin of the PNG so the artwork aligns optically to the type below it. */
+.bc-a .bc-mark{display:block;flex:none;width:13cqw;aspect-ratio:408/400;overflow:hidden;--bc-mark-ink:var(--bc-pine)}
+.bc-a .bc-mark img{display:block;width:120.1%;max-width:none;height:auto;margin:-11.27% 0 0 -10.29%;
+  position:relative;left:-60cqw;filter:drop-shadow(60cqw 0 0 var(--bc-mark-ink))}
+.bc-a .bc-wm{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.bc-a .bc-wm-a{font-family:var(--bc-serif);font-size:5cqw;letter-spacing:.44em;margin-right:-.44em;color:var(--bc-ink);font-weight:400}
+.bc-a .bc-wm-p{font-family:var(--bc-sans);font-size:2cqw;letter-spacing:.56em;margin-right:-.56em;margin-top:1.4cqw;text-transform:uppercase;font-weight:700;color:var(--bc-pine)}
+
+/* ---------- front: mostly paper. The pine back is the one dark surface. ---------- */
+.bc-a .bc-front{grid-template-columns:38% minmax(0,1fr)}
+
+/* portrait placeholder: a light slot with the initials in the serif. A photo simply covers it. */
+.bc-a .bc-portrait{
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#e9eeea 0%,var(--bc-mist) 100%);
+  color:var(--bc-pine);
+}
+.bc-a .bc-portrait img{position:absolute;inset:0;z-index:2;display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 20%}
+.bc-a .bc-ph-ticks{position:absolute;inset:5cqw;--t:rgba(46,75,63,.38);--l:2.6cqw;
+  background:
+    linear-gradient(var(--t),var(--t)) left top/var(--l) 1px no-repeat,
+    linear-gradient(var(--t),var(--t)) left top/1px var(--l) no-repeat,
+    linear-gradient(var(--t),var(--t)) right top/var(--l) 1px no-repeat,
+    linear-gradient(var(--t),var(--t)) right top/1px var(--l) no-repeat,
+    linear-gradient(var(--t),var(--t)) left bottom/var(--l) 1px no-repeat,
+    linear-gradient(var(--t),var(--t)) left bottom/1px var(--l) no-repeat,
+    linear-gradient(var(--t),var(--t)) right bottom/var(--l) 1px no-repeat,
+    linear-gradient(var(--t),var(--t)) right bottom/1px var(--l) no-repeat}
+.bc-a .bc-ph-ring{display:flex;align-items:center;justify-content:center;width:20cqw;aspect-ratio:1;border-radius:50%;border:1px solid rgba(46,75,63,.32)}
+.bc-a .bc-ph-ini{font-family:var(--bc-serif);font-size:9.4cqw;letter-spacing:.06em;margin-right:-.06em;color:var(--bc-pine);font-weight:400;line-height:1}
+.bc-a .bc-ph-label{position:absolute;left:0;right:0;bottom:7.4cqw;text-align:center;font-size:1.7cqw;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;font-weight:600;color:var(--bc-sage-text)}
+
+/* details: lockup alone at the top; name, title and contacts sit as one block on the bottom margin */
+.bc-a .bc-details{display:flex;flex-direction:column;justify-content:flex-start;min-width:0;padding:5cqw 5cqw 5cqw 5.6cqw}
+.bc-a .bc-id{margin-top:auto}
+.bc-a .bc-name{font-family:var(--bc-serif);font-size:7.4cqw;line-height:1;letter-spacing:-.004em;color:var(--bc-ink);font-weight:400;white-space:nowrap}
+.bc-a .bc-role{margin-top:2.3cqw;font-size:2.2cqw;line-height:1;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--bc-pine);white-space:nowrap}
+.bc-a .bc-dept{margin-top:1.5cqw;font-size:2.6cqw;line-height:1;letter-spacing:.02em;font-weight:500;color:var(--bc-body);white-space:nowrap}
+.bc-a .bc-contact{display:grid;row-gap:1.3cqw;margin-top:3.6cqw;
+  font-size:2.75cqw;line-height:1.15;letter-spacing:.01em;color:var(--bc-body);font-variant-numeric:lining-nums tabular-nums}
+.bc-a .bc-line{display:flex;align-items:center;gap:2.1cqw;white-space:nowrap}
+.bc-a .bc-line:first-child span{letter-spacing:.05em}
+.bc-a .bc-line svg{flex:none;width:3.1cqw;height:3.1cqw;fill:none;stroke:var(--bc-rain);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- back: flat pine ---------- */
+.bc-a .bc-back{grid-template-columns:minmax(0,1fr) 38%;color:var(--bc-cloud);background:var(--bc-pine);
+  print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.bc-a .bc-brand{display:flex;flex-direction:column;align-items:center;min-width:0;padding:5cqw}
+.bc-a .bc-back .bc-lockup{flex-direction:column;gap:2.6cqw;margin:auto 0}
+.bc-a .bc-back .bc-mark{width:21cqw;--bc-mark-ink:var(--bc-cloud)}
+.bc-a .bc-back .bc-wm{align-items:center}
+.bc-a .bc-back .bc-wm-a{font-size:6.2cqw;color:var(--bc-cloud)}
+.bc-a .bc-back .bc-wm-p{font-size:2.1cqw;margin-top:1.9cqw;font-weight:600;color:var(--bc-sage)}
+.bc-a .bc-desc{font-size:2.4cqw;line-height:1;font-weight:500;letter-spacing:.03em;color:rgba(243,245,241,.82);white-space:nowrap}
+.bc-a .bc-url{margin-top:1.6cqw;font-size:2.4cqw;line-height:1;font-weight:400;letter-spacing:.05em;color:var(--bc-cloud);white-space:nowrap}
+.bc-a .bc-scan{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;margin:5cqw 0;border-left:1px solid rgba(173,191,174,.18)}
+.bc-a .bc-qr-tile{width:19cqw;aspect-ratio:1;padding:1.5cqw;border-radius:.5cqw;background:var(--bc-cloud)}
+.bc-a .bc-qr{display:block;width:100%;height:100%;fill:var(--bc-pine)}
+.bc-a .bc-scan-name{margin-top:2.8cqw;font-family:var(--bc-serif);font-size:3cqw;line-height:1;letter-spacing:.01em;color:var(--bc-cloud);white-space:nowrap}
+.bc-a .bc-scan-label{margin-top:1.7cqw;font-size:2.2cqw;line-height:1;letter-spacing:.03em;font-weight:500;color:var(--bc-sage);white-space:nowrap}
+
+/* alternate "quiet back": no QR, no divider. Mark, name, descriptor and URL centred on flat pine. */
+.bc-a .bc-quiet{grid-template-columns:minmax(0,1fr)}
+.bc-a .bc-quiet .bc-mark{width:22cqw}
+
+@media print{
+  .bc-a .bc-card{break-inside:avoid}
+  .bc-a .bc-front{outline:1px solid var(--bc-mist);outline-offset:-1px}
+}
+
+/* ============================== cards_b.css ============================== */
+/* AVEN Property · business cards · direction B "editorial minimal, landscape" (alternate)
+   Everything is scoped under .bc-b. Structure: .bc-b (grid) > .bc-item > .bc-cap (caption) + .bc-card (the card).
+   Each card is a size container, so every measure inside is in cqw (1cqw = 1% of card width;
+   90mm card, so 1mm = 1.111cqw) and the card scales as one object.
+   Type follows --font-serif / --font-sans, colour follows the Evening Pine tokens (with fallbacks). */
+
+.bc-b,.bc-b *,.bc-b *::before,.bc-b *::after{box-sizing:border-box;margin:0;padding:0}
+.bc-b{
+  --bc-ink:var(--ink,#1c2b26);--bc-pine:var(--pine,#2e4b3f);--bc-rain:var(--rain,#5b7e8c);
+  --bc-sage:var(--sage,#adbfae);--bc-sage-text:var(--sage-text,#6f8579);--bc-cloud:var(--cloud,#f3f5f1);
+  --bc-paper:var(--paper,#fbfcfa);--bc-mist:var(--mist,#dfe6e0);--bc-body:var(--body,#3d4f47);--bc-hair:var(--hair,#ccd6cd);
+  --bc-serif:var(--font-serif,"AVEN Serif",Georgia,serif);
+  --bc-sans:var(--font-sans,"AVEN Sans","Segoe UI",sans-serif);
+  --bc-shadow:0 0 0 1px rgba(28,43,38,.05),0 1px 2px rgba(28,43,38,.06),0 20px 40px -20px rgba(28,43,38,.30);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:34px 40px;
+  justify-content:center;
+  align-items:start;
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+  font-family:var(--bc-sans);font-style:normal;font-weight:400;text-align:left;text-transform:none;letter-spacing:normal;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.bc-b .bc-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- item = caption + card ---------- */
+.bc-b .bc-item{display:flex;flex-direction:column;width:100%;max-width:380px;min-width:0;justify-self:center}
+.bc-b .bc-cap{margin-bottom:10px;font-size:10.5px;line-height:1.3;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--bc-sage-text)}
+
+/* ---------- the card object ---------- */
+.bc-b .bc-card{
+  container-type:inline-size;
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:90/55;
+  border-radius:3px;
+  overflow:hidden;
+  background:var(--bc-paper);
+  color:var(--bc-ink);
+  line-height:1;
+  box-shadow:var(--bc-shadow);
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+}
+.bc-b .bc-face{position:absolute;inset:0}
+
+/* ---------- front: lockup, hairline, name ---------- */
+.bc-b .bc-front .bc-face{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:4.2cqw 6cqw 6.4cqw;
+  background:var(--bc-paper);
+  text-align:center;
+}
+/* The mark is painted as ONE flat pine ink: the PNG is pushed out of its clipped box and a zero-blur
+   drop-shadow of it, in pine, lands where the artwork was. No same-origin fetch needed (unlike mask-image),
+   so it also renders from file:// and in the PDF build. */
+.bc-b .bc-mark{display:block;flex:none;width:23cqw;aspect-ratio:1;overflow:hidden;margin:0 auto}
+.bc-b .bc-mark img{display:block;width:100%;height:100%;max-width:none;
+  position:relative;left:-60cqw;filter:drop-shadow(60cqw 0 0 var(--bc-pine))}
+.bc-b .bc-face .bc-aven{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:5.3cqw;line-height:1;
+  letter-spacing:.44em;padding-left:.44em;
+  text-transform:uppercase;
+  color:var(--bc-ink);
+}
+.bc-b .bc-face .bc-property{
+  font-family:var(--bc-sans);
+  font-weight:600;
+  font-size:2.1cqw;line-height:1;
+  letter-spacing:.57em;padding-left:.57em;
+  text-transform:uppercase;
+  color:var(--bc-sage-text);
+  margin-top:1.7cqw;
+}
+.bc-b .bc-face .bc-hair{
+  display:flex;align-items:center;justify-content:center;gap:1.5cqw;
+  margin:4.2cqw 0 2.8cqw;
+}
+.bc-b .bc-hair i{display:block;width:5.6cqw;height:1px;background:var(--bc-sage)}
+.bc-b .bc-hair b{display:block;width:.9cqw;height:.9cqw;border-radius:50%;background:var(--bc-rain)}
+.bc-b .bc-front-name{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:3.7cqw;line-height:1.1;
+  letter-spacing:.01em;
+  color:var(--bc-pine);
+}
+
+/* ---------- back: arch portrait, person, contact, QR ---------- */
+.bc-b .bc-back{background:var(--bc-cloud)}
+.bc-b .bc-back .bc-face{
+  display:grid;
+  grid-template-columns:22cqw minmax(0,1fr);
+  column-gap:5.4cqw;
+  padding:0 5cqw 2.4cqw 5.4cqw;
+  background:var(--bc-cloud);
+}
+/* the thin pine edge: a ground line the arch stands on */
+.bc-b .bc-back .bc-face::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2.4cqw;
+  background:var(--bc-pine);
+}
+
+/* portrait placeholder: a light arch with the initials in the serif. To use a photo, drop an <img>
+   inside .bc-portrait: it covers the monogram and inherits the arch. */
+.bc-b .bc-portrait{
+  position:relative;align-self:end;
+  width:100%;height:46cqw;
+  border-radius:11cqw 11cqw 0 0;
+  overflow:hidden;
+  background:linear-gradient(180deg,#e9eeea 0%,var(--bc-mist) 100%);
+  box-shadow:inset 0 0 0 1px rgba(46,75,63,.10);
+  color:var(--bc-pine);
+  display:flex;flex-direction:column;align-items:center;
+}
+.bc-b .bc-portrait::before{
+  content:"";position:absolute;inset:1.5cqw 1.5cqw -1px;
+  border:1px solid rgba(46,75,63,.32);border-bottom:0;
+  border-radius:9.5cqw 9.5cqw 0 0;
+  pointer-events:none;
+}
+.bc-b .bc-face .bc-initials{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:7.6cqw;line-height:1;
+  letter-spacing:.08em;padding-left:.08em;
+  margin-top:15.6cqw;
+  color:var(--bc-pine);
+}
+.bc-b .bc-face .bc-plabel{
+  margin-top:auto;margin-bottom:3.4cqw;
+  font-size:1.7cqw;line-height:1;font-weight:600;
+  letter-spacing:.34em;padding-left:.34em;
+  text-transform:uppercase;
+  color:var(--bc-sage-text);
+}
+.bc-b .bc-portrait img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 18%}
+
+.bc-b .bc-face .bc-info{
+  display:flex;flex-direction:column;min-width:0;
+  padding:6.4cqw 0 4.6cqw;
+}
+.bc-b .bc-descriptor{
+  font-size:2.2cqw;line-height:1;font-weight:400;
+  letter-spacing:.02em;
+  color:var(--bc-sage-text);
+  white-space:nowrap;
+}
+.bc-b .bc-descriptor b{font-weight:700;color:var(--bc-pine);letter-spacing:.04em}
+.bc-b .bc-descriptor i{font-style:normal;margin:0 .55em;color:var(--bc-sage)}
+.bc-b .bc-face .bc-name{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:6.5cqw;line-height:1;
+  letter-spacing:-.005em;
+  color:var(--bc-ink);
+  margin-top:2.6cqw;
+}
+.bc-b .bc-face .bc-title{
+  margin-top:2.3cqw;
+  font-size:2.2cqw;line-height:1.5;font-weight:700;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--bc-pine);
+}
+.bc-b .bc-title span{display:block;font-weight:600;color:var(--bc-sage-text)}
+.bc-b .bc-face .bc-rule{height:1px;background:var(--bc-hair);margin:auto 0}
+.bc-b .bc-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:2cqw}
+.bc-b .bc-contact{list-style:none;display:grid;row-gap:1.4cqw;min-width:0}
+.bc-b .bc-contact li{
+  display:flex;align-items:center;gap:1.7cqw;
+  font-size:2.5cqw;line-height:1;font-weight:400;
+  letter-spacing:.01em;
+  color:var(--bc-body);
+  white-space:nowrap;
+  font-variant-numeric:lining-nums tabular-nums;
+}
+.bc-b .bc-contact li:first-child{font-weight:600;color:var(--bc-ink);letter-spacing:.04em}
+.bc-b .bc-contact svg{flex:none;width:2.7cqw;height:2.7cqw;fill:none;stroke:var(--bc-rain);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bc-b .bc-qr{flex:none;text-align:center}
+.bc-b .bc-face .bc-qr svg{
+  display:block;width:13.2cqw;height:13.2cqw;
+  margin:0 auto;
+  padding:1cqw;
+  background:var(--bc-paper);
+  border:1px solid var(--bc-mist);
+  border-radius:.6cqw;
+  fill:var(--bc-pine);
+}
+.bc-b .bc-face .bc-qr span{
+  display:block;margin-top:1.3cqw;
+  font-size:2.1cqw;line-height:1;font-weight:400;
+  letter-spacing:.03em;
+  color:var(--bc-sage-text);
+}
+
+@media print{
+  .bc-b .bc-card{break-inside:avoid;outline:1px solid var(--bc-mist);outline-offset:-1px}
+}
+
+/* ============================== cards_c.css ============================== */
+/* AVEN Property · business cards · direction C "vertical card" (55 x 90 mm, portrait) (alternate)
+   Everything is scoped under .bc-c. Structure: .bc-c (grid) > .bc-item > .bc-cap (caption) + .bc-card (the card).
+   Type follows --font-serif / --font-sans, colour follows the Evening Pine tokens (with fallbacks).
+   One card unit (--u) = 1 mm of the printed card, so every measure below reads as millimetres
+   and the whole card scales as one piece (container query units, no breakpoints inside the card).
+   Print-safe margin: nothing live sits closer than 5 mm to the trim. Smallest printed caps: 2 mm (5.7pt). */
+
+.bc-c,.bc-c *,.bc-c *::before,.bc-c *::after{box-sizing:border-box;margin:0;padding:0}
+.bc-c{
+  --bc-ink:var(--ink,#1c2b26);--bc-pine:var(--pine,#2e4b3f);--bc-rain:var(--rain,#5b7e8c);
+  --bc-sage:var(--sage,#adbfae);--bc-sage-text:var(--sage-text,#6f8579);--bc-cloud:var(--cloud,#f3f5f1);
+  --bc-paper:var(--paper,#fbfcfa);--bc-mist:var(--mist,#dfe6e0);--bc-body:var(--body,#3d4f47);
+  --bc-serif:var(--font-serif,"AVEN Serif",Georgia,serif);
+  --bc-sans:var(--font-sans,"AVEN Sans","Segoe UI",sans-serif);
+  --bc-shadow:0 0 0 1px rgba(28,43,38,.045),0 1px 2px rgba(28,43,38,.08),0 2px 6px rgba(28,43,38,.05),0 22px 44px -20px rgba(28,43,38,.34);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
+  gap:34px 48px;
+  justify-content:center;
+  align-items:start;
+  width:100%;
+  max-width:528px;
+  margin:0 auto;
+  font-family:var(--bc-sans);font-style:normal;font-weight:400;text-align:left;text-transform:none;letter-spacing:normal;
+  color:var(--bc-ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ---------- item = caption + card ---------- */
+.bc-c .bc-item{display:flex;flex-direction:column;width:100%;max-width:240px;min-width:0;justify-self:center}
+.bc-c .bc-cap{margin-bottom:10px;font-size:10.5px;line-height:1.3;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--bc-sage-text)}
+
+/* ---------- the card ---------- */
+.bc-c .bc-card{
+  --u:calc(100cqw / 55);
+  container-type:inline-size;
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:55 / 90;
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--bc-paper);
+  line-height:1;
+  box-shadow:var(--bc-shadow);
+  print-color-adjust:exact;
+  -webkit-print-color-adjust:exact;
+}
+
+.bc-c .c-face{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:calc(var(--u) * 6) calc(var(--u) * 5) calc(var(--u) * 5.2);
+}
+
+/* ---------- the arch window (portrait on the front, lockup on the back) ---------- */
+.bc-c .c-window{
+  position:relative;
+  flex:none;
+  width:calc(var(--u) * 37);
+  height:calc(var(--u) * 43);
+  border-radius:999px 999px 0 0;
+}
+/* hairline frame, 1.4 mm outside the window, standing on a ground line */
+.bc-c .c-window::before{
+  content:"";
+  position:absolute;
+  inset:calc(var(--u) * -1.4) calc(var(--u) * -1.4) 0;
+  border:1px solid var(--bc-sage);
+  border-bottom:0;
+  border-radius:999px 999px 0 0;
+  pointer-events:none;
+}
+.bc-c .c-window::after{
+  content:"";
+  position:absolute;
+  left:calc(var(--u) * -4);
+  right:calc(var(--u) * -4);
+  bottom:-1px;
+  height:1px;
+  background:var(--bc-sage);
+  pointer-events:none;
+}
+
+/* ---------- front: the brand set in type, above the arch ---------- */
+.bc-c .c-front .c-face{padding-top:calc(var(--u) * 5.6)}
+.bc-c .c-brand{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:calc(var(--u) * 4.6);
+  line-height:1;
+  letter-spacing:.4em;
+  text-indent:.4em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--bc-ink);
+}
+.bc-c .c-brand span{
+  display:block;
+  margin-top:calc(var(--u) * 1.3);
+  font-family:var(--bc-sans);
+  font-weight:700;
+  font-size:calc(var(--u) * 2);
+  letter-spacing:.45em;
+  text-indent:.45em;
+  color:var(--bc-pine);
+}
+.bc-c .c-front .c-window{
+  width:calc(var(--u) * 29);
+  height:calc(var(--u) * 32);
+  margin-top:calc(var(--u) * 4.6);
+}
+
+/* ---------- portrait placeholder ----------
+   A light arch with the initials in the serif, so the slot reads as "portrait goes here", not as a default avatar.
+   To use a photo: put <img src="..." alt="Cara Nash"> inside .c-portrait.
+   The image covers the placeholder; nothing else needs to change. */
+.bc-c .c-portrait{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border-radius:inherit;
+  background:linear-gradient(180deg,#e9eeea 0%,var(--bc-mist) 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.bc-c .c-portrait img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:50% 20%;
+  display:block;
+}
+.bc-c .c-initials{
+  margin-top:calc(var(--u) * 2);
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:calc(var(--u) * 8);
+  line-height:1;
+  letter-spacing:.05em;
+  text-indent:.05em;
+  color:var(--bc-pine);
+}
+.bc-c .c-plabel{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:calc(var(--u) * 3);
+  font-size:calc(var(--u) * 1.6);
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  text-transform:uppercase;
+  color:var(--bc-sage-text);
+}
+
+/* ---------- front: name, title ---------- */
+.bc-c .c-id{margin-top:calc(var(--u) * 4.2)}
+.bc-c .c-name{
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:calc(var(--u) * 5.5);
+  line-height:1;
+  letter-spacing:.005em;
+  white-space:nowrap;
+  color:var(--bc-ink);
+}
+.bc-c .c-role{
+  margin-top:calc(var(--u) * 2.2);
+  font-size:calc(var(--u) * 2.05);
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-indent:.2em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--bc-rain);
+}
+.bc-c .c-dept{
+  margin-top:calc(var(--u) * 1.35);
+  font-size:calc(var(--u) * 2.4);
+  line-height:1.1;
+  font-weight:500;
+  letter-spacing:.015em;
+  color:var(--bc-body);
+}
+
+/* ---------- front: contact lines at the foot ---------- */
+.bc-c .c-contact{
+  margin-top:auto;
+  width:100%;
+  font-size:calc(var(--u) * 2.4);
+  line-height:1.45;
+  font-weight:400;
+  letter-spacing:.015em;
+  color:var(--bc-body);
+  font-variant-numeric:lining-nums tabular-nums;
+}
+.bc-c .c-contact::before{
+  content:"";
+  display:block;
+  width:calc(var(--u) * 6);
+  height:1px;
+  margin:0 auto calc(var(--u) * 2.1);
+  background:var(--bc-sage);
+}
+.bc-c .c-contact > span{display:block;white-space:nowrap}
+.bc-c .c-phone{
+  font-weight:600;
+  letter-spacing:.08em;
+  color:var(--bc-ink);
+}
+.bc-c .c-contact > .c-place{
+  margin-top:calc(var(--u) * 1.6);
+  font-size:calc(var(--u) * 2);
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-indent:.16em;
+  text-transform:uppercase;
+  color:var(--bc-sage-text);
+}
+
+/* ---------- back: flat pine ---------- */
+.bc-c .c-back{background:var(--bc-pine)}
+.bc-c .c-back .c-window::before{border-color:rgba(173,191,174,.34)}
+.bc-c .c-back .c-window::after{background:rgba(173,191,174,.34)}
+.bc-c .c-lockup{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+/* the mark is a transparent PNG; brightness(0) invert(1) reverses it to one flat light ink */
+.bc-c .c-mark{
+  display:block;
+  width:calc(var(--u) * 29);
+  height:auto;
+  max-width:none;
+  margin-top:calc(var(--u) * 4);
+  filter:brightness(0) invert(1);
+  opacity:.84;
+}
+.bc-c .c-wm{
+  margin-top:calc(var(--u) * .3);
+  font-family:var(--bc-serif);
+  font-weight:400;
+  font-size:calc(var(--u) * 4.5);
+  line-height:1;
+  letter-spacing:.36em;
+  text-indent:.36em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--bc-cloud);
+}
+.bc-c .c-wm span{
+  display:block;
+  margin-top:calc(var(--u) * 1.4);
+  font-family:var(--bc-sans);
+  font-weight:600;
+  font-size:calc(var(--u) * 2);
+  letter-spacing:.39em;
+  text-indent:.39em;
+  color:var(--bc-sage);
+}
+.bc-c .c-desc{
+  margin-top:calc(var(--u) * 4.2);
+  font-size:calc(var(--u) * 2.2);
+  line-height:1;
+  font-weight:500;
+  letter-spacing:.03em;
+  white-space:nowrap;
+  color:rgba(243,245,241,.82);
+}
+.bc-c .c-save{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.bc-c .c-qr{
+  width:calc(var(--u) * 12.5);
+  height:calc(var(--u) * 12.5);
+  padding:calc(var(--u) * 1.1);
+  border-radius:calc(var(--u) * .7);
+  background:var(--bc-mist);
+  color:var(--bc-pine);
+}
+.bc-c .c-qr svg{display:block;width:100%;height:100%;fill:currentColor}
+.bc-c .c-scan{
+  margin-top:calc(var(--u) * 1.8);
+  font-size:calc(var(--u) * 2);
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.26em;
+  text-indent:.26em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--bc-sage);
+}
+.bc-c .c-web{
+  margin-top:calc(var(--u) * 2.8);
+  font-size:calc(var(--u) * 2.3);
+  line-height:1;
+  letter-spacing:.05em;
+  white-space:nowrap;
+  color:var(--bc-cloud);
+}
+
+@media print{
+  .bc-c .bc-card{break-inside:avoid}
+  .bc-c .c-front{outline:1px solid var(--bc-mist);outline-offset:-1px}
+}
+

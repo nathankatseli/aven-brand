@@ -9,16 +9,21 @@
   var meta = {};            /* id -> {by, at} from the sheet */
   var pending = {};         /* id -> call record waiting to be posted */
   var online = null;        /* null unknown, true/false after first contact */
-  var FONT_SERIF = {
-    "source-serif-4": '"Cand Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif',
-    "crimson-pro": '"Cand Crimson Pro","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif',
-    "eb-garamond": '"Cand EB Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif'
+  /* PAIRS:start */
+  var PAIR_DEFAULT = "ebg-ns";
+  var PAIRS = {
+    "ebg-ns": ["\"Cand EB Garamond\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Nunito Sans\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "corm-jost": ["\"Cand Cormorant Garamond\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Jost\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "play-mont": ["\"Cand Playfair Display\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Montserrat\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "fraun-inter": ["\"Cand Fraunces\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Inter\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "lora-karla": ["\"Cand Lora\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Karla\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "marc-josefin": ["\"Cand Marcellus\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Josefin Sans\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "caslon-mulish": ["\"Cand Libre Caslon Text\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Mulish\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "ss4-inter": ["\"Cand Source Serif 4\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Inter\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "crimson-ns": ["\"Cand Crimson Pro\",\"Iowan Old Style\",\"Palatino Linotype\",Palatino,Georgia,serif", "\"Cand Nunito Sans\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"],
+    "jost-jost": ["\"Cand Jost\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif", "\"Cand Jost\",\"Avenir Next\",\"Avenir\",\"Segoe UI\",system-ui,sans-serif"]
   };
-  var FONT_SANS = {
-    "nunito-sans": '"Cand Nunito Sans","Avenir Next","Avenir","Segoe UI",system-ui,sans-serif',
-    "mulish": '"Cand Mulish","Avenir Next","Avenir","Segoe UI",system-ui,sans-serif',
-    "inter": '"Cand Inter","Avenir Next","Avenir","Segoe UI",system-ui,sans-serif'
-  };
+  /* PAIRS:end */
 
   function load() {
     try { return JSON.parse(localStorage.getItem(KEY) || "null") || { v: 1, book: "aven-brand", calls: {} }; }
@@ -190,11 +195,16 @@
   }
 
   function applyFonts() {
-    var s = document.querySelector('fieldset.call[data-id="type-serif"] input:checked');
-    var a = document.querySelector('fieldset.call[data-id="type-sans"] input:checked');
+    var c = document.querySelector('fieldset.call[data-id="type-pairing"] input:checked');
+    var id = c && PAIRS[c.value] ? c.value : null;
     var root = document.documentElement.style;
-    if (s && FONT_SERIF[s.value]) root.setProperty("--font-serif", FONT_SERIF[s.value]); else root.removeProperty("--font-serif");
-    if (a && FONT_SANS[a.value]) root.setProperty("--font-sans", FONT_SANS[a.value]); else root.removeProperty("--font-sans");
+    if (id) { root.setProperty("--font-serif", PAIRS[id][0]); root.setProperty("--font-sans", PAIRS[id][1]); }
+    else { root.removeProperty("--font-serif"); root.removeProperty("--font-sans"); }
+    var cur = id || PAIR_DEFAULT;
+    Array.prototype.forEach.call(document.querySelectorAll(".pair[data-pair]"), function (el) {
+      var on = el.dataset.pair === cur; el.classList.toggle("on", on);
+      var btn = el.querySelector(".pick"); if (btn) btn.textContent = on ? (id ? "The book is set in this pairing" : "In use now \u00b7 the standing call") : "Set the book in this pairing";
+    });
   }
 
   function rows() {
@@ -234,6 +244,7 @@
       var on = Array.prototype.filter.call(document.querySelectorAll('input[name="mark-secondary"]'), function (i) { return i.checked; });
       if (on.length > 2) { on[0] === e.target ? on[1].checked = false : on[0].checked = false; }
     }
+    var ch = e.target.closest(".chapter"); if (ch) ch.classList.add("expanded");
     serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id);
   });
   document.addEventListener("input", function (e) { if (e.target.matches && e.target.matches("fieldset.call textarea")) { serialise(); paint(); queuePush(e.target.closest("fieldset.call").dataset.id); } });
@@ -261,6 +272,14 @@
           .catch(function () { setStatus("Offline \u2014 cleared on this device only", true); toast("Cleared on this device; the sheet was not reachable."); });
       }
     }
+  });
+
+  /* specimen cards: "Set the book in this pairing" ticks the matching ballot option */
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest && e.target.closest("[data-pick]"); if (!t) return;
+    var bits = t.dataset.pick.split(":");
+    var inp = document.querySelector('fieldset.call[data-id="' + bits[0] + '"] input[value="' + bits[1] + '"]');
+    if (inp && !inp.checked) inp.click();
   });
 
   document.addEventListener("click", function (e) {

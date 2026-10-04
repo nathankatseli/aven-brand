@@ -1,0 +1,8 @@
+.app.cardset{margin-top:var(--s3);padding:26px}
+.app.cardset+.app.cardset{margin-top:16px}
+.cardstage{background:radial-gradient(100% 100% at 50% 0%,var(--paper) 0%,var(--cloud) 100%);border:1px solid var(--mist);border-radius:14px;padding:clamp(18px,3.4vw,40px)}
+.app.cardset p{margin-top:16px;max-width:86ch}
+.app.cardset p.fine{font-size:12.5px;color:var(--sage-text);line-height:1.55}
+details.cards-alt{margin-top:16px}
+details.cards-alt .app.cardset{box-shadow:none;margin-bottom:16px}
+@media print{.app.cardset{break-inside:avoid}}

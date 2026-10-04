@@ -23,6 +23,17 @@ CANDIDATES = {  # slug: (css2 family spec, display name, kind)
     "nunito-sans":    ("Nunito+Sans:opsz,wght@6..12,400..700", "Nunito Sans", "sans"),
     "mulish":         ("Mulish:wght@400..700", "Mulish", "sans"),
     "inter":          ("Inter:wght@400..700", "Inter", "sans"),
+    # typography reopened 4/10/26 - wider candidate set for the pairing ballot
+    "cormorant-garamond": ("Cormorant+Garamond:wght@400..700", "Cormorant Garamond", "serif"),
+    "playfair-display":   ("Playfair+Display:wght@400..700", "Playfair Display", "serif"),
+    "fraunces":           ("Fraunces:opsz,wght@9..144,400..700", "Fraunces", "serif"),
+    "lora":               ("Lora:wght@400..700", "Lora", "serif"),
+    "marcellus":          ("Marcellus", "Marcellus", "serif"),
+    "libre-caslon-text":  ("Libre+Caslon+Text:wght@400;700", "Libre Caslon Text", "serif"),
+    "jost":               ("Jost:wght@300..700", "Jost", "sans"),
+    "josefin-sans":       ("Josefin+Sans:wght@300..700", "Josefin Sans", "sans"),
+    "montserrat":         ("Montserrat:wght@300..700", "Montserrat", "sans"),
+    "karla":              ("Karla:wght@400..700", "Karla", "sans"),
 }
 RECOMMENDED = {"serif": "eb-garamond", "sans": "nunito-sans"}  # Cara + Nathan, 27/9/26
 
@@ -134,7 +145,7 @@ def candidates():
     cdir = OUT_MARKS / "candidates"
     cdir.mkdir(parents=True, exist_ok=True)
     for slug, (_, name, kind) in CANDIDATES.items():
-        if kind != "serif":
+        if kind != "serif" or slug not in ("source-serif-4", "crimson-pro", "eb-garamond"):
             continue
         g = _outline(_font(slug), "AVEN", 34, 5, 105, 78, "#1c2b26")
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="36 44 138 60" role="img" aria-label="AVEN wordmark in {name}">{g}'
