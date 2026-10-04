@@ -346,9 +346,11 @@
 
   hydrate();
   paint();
+  /* printing shows everything: folded option sets open before the page is laid out */
+  window.addEventListener("beforeprint", function () { document.querySelectorAll("details").forEach(function (d) { d.open = true; }); });
   if (SHOW_ALL) {
     document.body.classList.add("show-all");
-    document.querySelectorAll("details.acc").forEach(function (d) { d.open = true; });
+    document.querySelectorAll("details").forEach(function (d) { d.open = true; });
     revealIn(document.documentElement);
     var sa = document.querySelector('[data-act="show-all"]'); if (sa) sa.textContent = "Fold the decided chapters";
   }

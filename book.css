@@ -580,7 +580,7 @@ fieldset[data-id="type-pairing"] .opts{display:grid;grid-template-columns:repeat
 .app.cardset p.fine{font-size:12.5px;color:var(--sage-text);line-height:1.55}
 details.cards-alt{margin-top:16px}
 details.cards-alt .app.cardset{box-shadow:none;margin-bottom:16px}
-@media print{.app.cardset{break-inside:avoid}}
+@media print{.app.cardset{break-inside:auto}.app.cardset .bc-item{break-inside:avoid}}
 /* AVEN Property - business cards - combined stylesheet for the brand book.
    = cards_a.css + cards_b.css + cards_c.css, in that order, unchanged. Do not edit here: edit the three sources and rebuild.
    A (.bc-a) is the chosen direction; B (.bc-b) and C (.bc-c) are the alternates.
@@ -626,8 +626,7 @@ details.cards-alt .app.cardset{box-shadow:none;margin-bottom:16px}
    Unlike mask-image this needs no same-origin fetch, so it also renders from file:// and in the PDF build.
    The box crops the ~9% transparent margin of the PNG so the artwork aligns optically to the type below it. */
 .bc-a .bc-mark{display:block;flex:none;width:13cqw;aspect-ratio:408/400;overflow:hidden;--bc-mark-ink:var(--bc-pine)}
-.bc-a .bc-mark img{display:block;width:120.1%;max-width:none;height:auto;margin:-11.27% 0 0 -10.29%;
-  position:relative;left:-60cqw;filter:drop-shadow(60cqw 0 0 var(--bc-mark-ink))}
+.bc-a .bc-mark img{display:block;width:120.1%;max-width:none;height:auto;margin:-11.27% 0 0 -10.29%;}
 .bc-a .bc-wm{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
 .bc-a .bc-wm-a{font-family:var(--bc-serif);font-size:5cqw;letter-spacing:.44em;margin-right:-.44em;color:var(--bc-ink);font-weight:400}
 .bc-a .bc-wm-p{font-family:var(--bc-sans);font-size:2cqw;letter-spacing:.56em;margin-right:-.56em;margin-top:1.4cqw;text-transform:uppercase;font-weight:700;color:var(--bc-pine)}
@@ -755,8 +754,7 @@ details.cards-alt .app.cardset{box-shadow:none;margin-bottom:16px}
    drop-shadow of it, in pine, lands where the artwork was. No same-origin fetch needed (unlike mask-image),
    so it also renders from file:// and in the PDF build. */
 .bc-b .bc-mark{display:block;flex:none;width:23cqw;aspect-ratio:1;overflow:hidden;margin:0 auto}
-.bc-b .bc-mark img{display:block;width:100%;height:100%;max-width:none;
-  position:relative;left:-60cqw;filter:drop-shadow(60cqw 0 0 var(--bc-pine))}
+.bc-b .bc-mark img{display:block;width:100%;height:100%;max-width:none;}
 .bc-b .bc-face .bc-aven{
   font-family:var(--bc-serif);
   font-weight:400;
@@ -1153,7 +1151,6 @@ details.cards-alt .app.cardset{box-shadow:none;margin-bottom:16px}
   height:auto;
   max-width:none;
   margin-top:calc(var(--u) * 4);
-  filter:brightness(0) invert(1);
   opacity:.84;
 }
 .bc-c .c-wm{
